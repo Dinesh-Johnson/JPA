@@ -1,4 +1,4 @@
-package com.xworkz.shop.passport;
+package com.xworkz.demo.passport;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
