@@ -38,7 +38,7 @@ public class MovieRepoImpl implements MovieRepo {
     public Optional<MovieEntity> findByTitle(String title) {
         EntityManager em = factory.createEntityManager();
         try {
-            MovieEntity entity = em.createNamedQuery("findByMovieTitle", MovieEntity.class)
+            MovieEntity entity = (MovieEntity) em.createNamedQuery("findByMovieTitle")
                     .setParameter("title", title)
                     .getSingleResult();
             return Optional.of(entity);
@@ -55,7 +55,7 @@ public class MovieRepoImpl implements MovieRepo {
     public Optional<MovieEntity> findByLanguage(String language) {
         EntityManager em = factory.createEntityManager();
         try {
-            MovieEntity entity = em.createNamedQuery("findByMovieLanguage", MovieEntity.class)
+            MovieEntity entity = (MovieEntity) em.createNamedQuery("findByMovieLanguage")
                     .setParameter("language", language)
                     .getSingleResult();
             return Optional.of(entity);
@@ -70,7 +70,7 @@ public class MovieRepoImpl implements MovieRepo {
     public Optional<MovieEntity> findByReleaseDate(LocalDate releaseDate) {
         EntityManager em = factory.createEntityManager();
         try {
-            MovieEntity entity = em.createNamedQuery("findByMovieReleaseDate", MovieEntity.class)
+            MovieEntity entity = (MovieEntity) em.createNamedQuery("findByMovieReleaseDate")
                     .setParameter("releaseDate", releaseDate)
                     .getSingleResult();
             return Optional.of(entity);

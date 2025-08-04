@@ -35,7 +35,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
     public Optional<AlbumEntity> findByTitle(String title) {
         EntityManager em = emf.createEntityManager();
         try {
-            AlbumEntity result = em.createNamedQuery("findByAlbumTitle", AlbumEntity.class)
+            AlbumEntity result = (AlbumEntity) em.createNamedQuery("findByAlbumTitle")
                     .setParameter("title", title)
                     .getSingleResult();
             return Optional.of(result);
@@ -50,7 +50,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
     public Optional<AlbumEntity> findByArtist(String artist) {
         EntityManager em = emf.createEntityManager();
         try {
-            AlbumEntity result = em.createNamedQuery("findByArtist", AlbumEntity.class)
+            AlbumEntity result = (AlbumEntity) em.createNamedQuery("findByArtist")
                     .setParameter("artist", artist)
                     .getSingleResult();
             return Optional.of(result);
@@ -67,7 +67,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
     public Optional<AlbumEntity> findByReleaseDate(LocalDate date) {
         EntityManager em = emf.createEntityManager();
         try {
-            AlbumEntity result = em.createNamedQuery("findByReleaseDate", AlbumEntity.class)
+            AlbumEntity result = (AlbumEntity) em.createNamedQuery("findByReleaseDate")
                     .setParameter("releaseDate", date)
                     .getSingleResult();
             return Optional.of(result);

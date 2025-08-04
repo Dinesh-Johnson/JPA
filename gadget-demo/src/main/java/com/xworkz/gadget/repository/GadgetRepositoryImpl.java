@@ -28,9 +28,10 @@ public class GadgetRepositoryImpl implements GadgetRepository {
     public Optional<GadgetEntity> findByBrand(String brand) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<GadgetEntity> query = em.createNamedQuery("findByBrand", GadgetEntity.class);
-            query.setParameter("brand", brand);
-            return Optional.ofNullable(query.getSingleResult());
+            GadgetEntity entity =(GadgetEntity)em.createNamedQuery("findByBrand")
+                    .setParameter("brand",brand)
+                    .getSingleResult();
+            System.out.println("findByBrand :"+entity);
         } catch (PersistenceException e) {
             e.printStackTrace();
         } finally {
@@ -43,9 +44,9 @@ public class GadgetRepositoryImpl implements GadgetRepository {
     public Optional<GadgetEntity> findByGadgetType(String type) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<GadgetEntity> query = em.createNamedQuery("findByGadgetType", GadgetEntity.class);
-            query.setParameter("type", type);
-            return Optional.ofNullable(query.getSingleResult());
+            GadgetEntity entity =(GadgetEntity) em.createNamedQuery("findByGadgetType")
+                    .setParameter("type",type).getSingleResult();
+            System.out.println("findByGadgetType :"+entity);
         } catch (PersistenceException e) {
             e.printStackTrace();
         } finally {
@@ -58,9 +59,9 @@ public class GadgetRepositoryImpl implements GadgetRepository {
     public Optional<GadgetEntity> findByLaunchDate(LocalDate date) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<GadgetEntity> query = em.createNamedQuery("findByLaunchDate", GadgetEntity.class);
-            query.setParameter("launchDate", date);
-            return Optional.ofNullable(query.getSingleResult());
+            GadgetEntity entity = (GadgetEntity) em.createNamedQuery("findByLaunchDate")
+                    .setParameter("launchDate",date).getSingleResult();
+            System.out.println("findByLaunchDate"+entity);
         } catch (PersistenceException e) {
             e.printStackTrace();
         } finally {
