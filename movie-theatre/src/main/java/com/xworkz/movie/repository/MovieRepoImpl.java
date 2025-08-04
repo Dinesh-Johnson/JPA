@@ -59,11 +59,12 @@ public class MovieRepoImpl implements MovieRepo {
                     .setParameter("language", language)
                     .getSingleResult();
             return Optional.of(entity);
-        } catch (NoResultException e) {
-            return Optional.empty();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
+        return Optional.empty();
     }
 
     @Override
