@@ -3,11 +3,10 @@ package com.xworkz.demo.repository;
 
 import com.xworkz.demo.entity.AlbumEntity;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class AlbumRepositoryImpl implements AlbumRepository {
@@ -76,6 +75,25 @@ public class AlbumRepositoryImpl implements AlbumRepository {
         } finally {
             em.close();
         }
+        return Optional.empty();
+    }
+
+    @Override
+    public List<AlbumEntity> findByAllAlbums() {
+        EntityManager em =  emf.createEntityManager();
+
+        Query query = (Query) em.createNamedQuery("findAllAlbums");
+        List list= query.getResultList();
+        list.forEach(System.out::println);
+        return Collections.emptyList();
+    }
+
+    @Override
+    public Optional<AlbumEntity> findByGenre(String genre) {
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("findByGenre").setParameter("genre",genre);
+        Object object= query.getSingleResult();
+        System.out.println(object);
         return Optional.empty();
     }
 }

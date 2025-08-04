@@ -4,6 +4,8 @@ import com.xworkz.demo.entity.AlbumEntity;
 import com.xworkz.demo.repository.AlbumRepository;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class AlbumServiceImpl implements AlbumService {
@@ -36,5 +38,17 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public Optional<AlbumEntity> getByReleaseDate(LocalDate date) {
         return repo.findByReleaseDate(date);
+    }
+
+    @Override
+    public List<AlbumEntity> findByAllAlbums() {
+
+
+        return repo.findByAllAlbums();
+    }
+
+    @Override
+    public Optional<AlbumEntity> findByGenre(String genre) {
+        return repo.findByGenre(genre);
     }
 }

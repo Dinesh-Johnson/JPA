@@ -3,6 +3,7 @@ package com.xworkz.demo.service;
 import com.xworkz.demo.entity.AlbumEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface AlbumService {
@@ -14,5 +15,9 @@ public interface AlbumService {
     Optional<AlbumEntity> getByArtist(String artist);
 
     Optional<AlbumEntity> getByReleaseDate(LocalDate date);
+
+    List<AlbumEntity> findByAllAlbums();
+
+    Optional<AlbumEntity> findByGenre(String genre);
 }
 

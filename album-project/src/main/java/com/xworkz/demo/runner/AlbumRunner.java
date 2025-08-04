@@ -22,9 +22,11 @@ public class AlbumRunner {
         album.setPrice(499.99);
         album.setRating(4.8f);
 
-        boolean saved = service.validateAndSave(album);
-        System.out.println("Album saved: " + saved);
+//        boolean saved = service.validateAndSave(album);
+//        System.out.println("Album saved: " + saved);
 
         //service.getByTitle("Echoes").ifPresent(a -> System.out.println("Found: " + a.getArtist()));
+        service.findByAllAlbums();
+        service.findByGenre("Progressive Rock");
     }
 }

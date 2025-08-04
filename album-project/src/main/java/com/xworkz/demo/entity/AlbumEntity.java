@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @NamedQuery(name = "findByAlbumTitle", query = "SELECT a FROM AlbumEntity a WHERE a.title = :title")
 @NamedQuery(name = "findByArtist", query = "SELECT a FROM AlbumEntity a WHERE a.artist = :artist")
 @NamedQuery(name = "findByReleaseDate", query = "SELECT a FROM AlbumEntity a WHERE a.releaseDate = :releaseDate")
+@NamedQuery(name = "findAllAlbums", query = "SELECT a FROM AlbumEntity a")
+@NamedQuery(name = "findByGenre", query = "SELECT a FROM AlbumEntity a WHERE a.genre = :genre")
 public class AlbumEntity {
 
     @Id
