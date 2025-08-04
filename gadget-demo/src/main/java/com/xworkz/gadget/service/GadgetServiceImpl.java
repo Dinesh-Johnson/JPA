@@ -4,6 +4,8 @@ import com.xworkz.gadget.entity.GadgetEntity;
 import com.xworkz.gadget.repository.GadgetRepository;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 public class GadgetServiceImpl implements GadgetService {
 
@@ -37,5 +39,16 @@ public class GadgetServiceImpl implements GadgetService {
     @Override
     public void findAndPrintByLaunchDate(LocalDate date) {
         repository.findByLaunchDate(date).ifPresent(System.out::println);
+    }
+
+    @Override
+    public List<GadgetEntity> findAllGadget() {
+
+        return repository.findAllGadget();
+    }
+
+    @Override
+    public void findByPrice(Double price) {
+        repository.findByPrice(price);
     }
 }

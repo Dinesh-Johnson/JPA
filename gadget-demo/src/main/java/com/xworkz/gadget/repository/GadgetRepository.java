@@ -3,6 +3,7 @@ package com.xworkz.gadget.repository;
 import com.xworkz.gadget.entity.GadgetEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface GadgetRepository {
@@ -14,4 +15,8 @@ public interface GadgetRepository {
     Optional<GadgetEntity> findByGadgetType(String type);
 
     Optional<GadgetEntity> findByLaunchDate(LocalDate date);
+
+    List<GadgetEntity> findAllGadget();
+
+    Optional<GadgetEntity> findByPrice(Double price);
 }

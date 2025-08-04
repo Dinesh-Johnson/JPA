@@ -16,6 +16,8 @@ import java.time.LocalDate;
 @NamedQuery(name = "findByBrand", query = "select g from GadgetEntity g where g.brand = :brand")
 @NamedQuery(name = "findByGadgetType", query = "select g from GadgetEntity g where g.type = :type")
 @NamedQuery(name = "findByLaunchDate", query = "select g from GadgetEntity g where g.launchDate = :launchDate")
+@NamedQuery(name = "findAllApplications", query = "select a from GadgetEntity a")
+@NamedQuery(name = "findByPrice", query = "select a from GadgetEntity a where a.price = :price")
 public class GadgetEntity {
 
     @Id

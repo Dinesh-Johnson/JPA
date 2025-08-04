@@ -21,10 +21,12 @@ public class GadgetRunner {
         entity.setWarrantyYears(2);
         entity.setLaunchDate(LocalDate.of(2023, 9, 12));
 
-        service.validateAndSave(entity);
+     //   service.validateAndSave(entity);
 
-        service.findAndPrintByBrand("Apple");
-        service.findAndPrintByType("Smartwatch");
-        service.findAndPrintByLaunchDate(LocalDate.of(2023, 9, 12));
+//        service.findAndPrintByBrand("Apple");
+//        service.findAndPrintByType("Smartwatch");
+//        service.findAndPrintByLaunchDate(LocalDate.of(2023, 9, 12));
+//        service.findAllGadget();
+        service.findByPrice(89999.0);
     }
 }

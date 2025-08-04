@@ -3,6 +3,7 @@ package com.xworkz.gadget.service;
 import com.xworkz.gadget.entity.GadgetEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface GadgetService {
 
@@ -13,4 +14,8 @@ public interface GadgetService {
     void findAndPrintByType(String type);
 
     void findAndPrintByLaunchDate(LocalDate date);
+
+    List<GadgetEntity> findAllGadget();
+
+    void findByPrice(Double price);
 }
