@@ -4,6 +4,7 @@ import com.xworkz.showroom.entity.ApplicationEntity;
 import com.xworkz.showroom.repository.ApplicationRepo;
 import com.xworkz.showroom.repository.ApplicationRepoImpl;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class ApplicationServiceImpl implements ApplicationService{
@@ -132,6 +133,65 @@ public class ApplicationServiceImpl implements ApplicationService{
             }
         }
 
+    }
+
+    @Override
+    public ApplicationEntity getApplicationByName(String name) {
+
+        if (name!=null){
+            System.out.println("Name is Not Null");
+            applicationRepo.getApplicationByName(name);
+        }
+
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationSize(String size) {
+
+        if (size!=null){
+            System.out.println("Size Not Null");
+            applicationRepo.getApplicationSize(size);
+        }
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationCompany(String company) {
+        if (company!=null){
+            System.out.println("Company not Null");
+            applicationRepo.getApplicationCompany(company);
+        }
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationUser(Integer user) {
+
+        if (user>0){
+            System.out.println("User is Not Equal to Zero");
+            applicationRepo.getApplicationUser(user);
+        }
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationRatings(Float ratings) {
+        if (ratings>0){
+            System.out.println("ratings Is Not zero and it is greater than zero");
+            applicationRepo.getApplicationRatings(ratings);
+        }
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationLaunchDate(LocalDate date) {
+
+        if (date!=null){
+            System.out.println("Date is Not null");
+            applicationRepo.getApplicationLaunchDate(date);
+        }
+        return null;
     }
 
 

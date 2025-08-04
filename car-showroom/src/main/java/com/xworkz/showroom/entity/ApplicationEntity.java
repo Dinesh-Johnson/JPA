@@ -10,6 +10,18 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @Table(name = "application_info")
+
+@NamedQuery(name = "findByApplicationName",query = "select a from ApplicationEntity a where a.applicationName = :name")
+@NamedQuery(name = "findByApplicationSize",query = "select a from ApplicationEntity a where a.applicationSize = :size")
+@NamedQuery(name = "findByApplicationCompany",query = "select a from ApplicationEntity a where a.company = :company")
+@NamedQuery(name = "findByApplicationUsers",query = "select a from ApplicationEntity a where a.noOfUsers = :users")
+@NamedQuery(name = "findByApplicationRatings",query = "select a from ApplicationEntity a where a.ratings = :ratings")
+@NamedQuery(name = "findByApplicationLaunchDate",query = "select a from ApplicationEntity a where a.launchDate = :date")
+
+/*
+
+
+ */
 public class ApplicationEntity {
 
     @Id

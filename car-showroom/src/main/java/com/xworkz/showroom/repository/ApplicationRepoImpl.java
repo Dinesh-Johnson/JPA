@@ -3,19 +3,21 @@ package com.xworkz.showroom.repository;
 import com.xworkz.showroom.entity.ApplicationEntity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class ApplicationRepoImpl implements ApplicationRepo{
 
+     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+
     @Override
     public void saveApplication(ApplicationEntity entity) {
 
-        EntityManagerFactory emf = null;
         EntityManager manager = null;
         EntityTransaction transaction = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
+
             manager = emf.createEntityManager();
             transaction = manager.getTransaction();
             transaction.begin();
@@ -39,13 +41,11 @@ public class ApplicationRepoImpl implements ApplicationRepo{
     @Override
     public Optional<ApplicationEntity> findByID(int id) {
 
-        EntityManagerFactory emf = null;
         EntityManager manager = null;
         ApplicationEntity entity=null;
 
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             manager = emf.createEntityManager();
             entity = manager.find(ApplicationEntity.class,id);
 
@@ -68,13 +68,11 @@ public class ApplicationRepoImpl implements ApplicationRepo{
     @Override
     public void deleteById(int id) {
 
-        EntityManagerFactory emf = null;
         EntityManager manager = null;
         EntityTransaction transaction =null;
 
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             manager = emf.createEntityManager();
             transaction= manager.getTransaction();
 
@@ -97,12 +95,7 @@ public class ApplicationRepoImpl implements ApplicationRepo{
             }
 
             } finally {
-            if (emf != null) {
-                emf.close();
-            }
-            if (manager != null) {
-                manager.close();
-            }
+
 
         }
 
@@ -111,12 +104,10 @@ public class ApplicationRepoImpl implements ApplicationRepo{
     @Override
     public boolean updateById(int id, String company) {
 
-        EntityManagerFactory emf = null;
         EntityManager manger = null;
         EntityTransaction transaction = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             manger = emf.createEntityManager();
             transaction = manger.getTransaction();
 
@@ -143,5 +134,137 @@ public class ApplicationRepoImpl implements ApplicationRepo{
             }
         }
         return false;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationByName(String name) {
+
+        EntityManager manger = null;
+        ApplicationEntity entity=null;
+
+        try {
+            manger = emf.createEntityManager();
+
+            entity=(ApplicationEntity) manger.createNamedQuery("findByApplicationName").setParameter("name",name).getSingleResult();
+
+            System.out.println("findByApplicationName :"+entity);
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationSize(String size) {
+        EntityManager manger = null;
+        ApplicationEntity entity=null;
+
+        try {
+            manger = emf.createEntityManager();
+
+            entity=(ApplicationEntity) manger.createNamedQuery("findByApplicationSize").setParameter("size",size).getSingleResult();
+
+            System.out.println("findByApplicationSize :"+entity);
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationCompany(String company) {
+        EntityManager manger = null;
+        ApplicationEntity entity=null;
+
+        try {
+            manger = emf.createEntityManager();
+
+            entity=(ApplicationEntity) manger.createNamedQuery("findByApplicationCompany").setParameter("company",company).getSingleResult();
+
+            System.out.println("findByApplicationCompany :"+entity);
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationUser(Integer user) {
+
+        EntityManager manger = null;
+        ApplicationEntity entity=null;
+
+        try {
+            manger = emf.createEntityManager();
+
+            entity=(ApplicationEntity) manger.createNamedQuery("findByApplicationUsers").setParameter("users",user).getSingleResult();
+
+            System.out.println("findByApplicationUsers :"+entity);
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationRatings(Float ratings) {
+        EntityManager manger = null;
+        ApplicationEntity entity=null;
+
+        try {
+            manger = emf.createEntityManager();
+
+            entity=(ApplicationEntity) manger.createNamedQuery("findByApplicationRatings").setParameter("ratings",ratings).getSingleResult();
+
+            System.out.println("findByApplicationRatings :"+entity);
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public ApplicationEntity getApplicationLaunchDate(LocalDate date) {
+        EntityManager manger = null;
+        ApplicationEntity entity=null;
+
+        try {
+            manger = emf.createEntityManager();
+
+            entity=(ApplicationEntity) manger.createNamedQuery("findByApplicationLaunchDate").setParameter("date",date).getSingleResult();
+
+            System.out.println("findByApplicationLaunchDate :"+entity);
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+
+        }
+
+        return null;
     }
 }

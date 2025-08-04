@@ -1,6 +1,8 @@
 package com.xworkz.showroom.runner;
 
 import com.xworkz.showroom.entity.ApplicationEntity;
+import com.xworkz.showroom.repository.ApplicationRepo;
+import com.xworkz.showroom.repository.ApplicationRepoImpl;
 import com.xworkz.showroom.service.ApplicationService;
 import com.xworkz.showroom.service.ApplicationServiceImpl;
 
@@ -12,13 +14,13 @@ public class ApplicationRunner {
     public static void main(String[] args) {
 
         ApplicationEntity application = new ApplicationEntity();
-
-        application.setApplicationName("Snapchat");
-        application.setApplicationSize("55 MB");
-        application.setNoOfUsers(152000);
-        application.setRatings(4.2f);
-        application.setCompany("Snap INC");
-        application.setLaunchDate(LocalDate.of(2004,2,4));
+/*
+        application.setApplicationName("Uber");
+        application.setApplicationSize("20 MB");
+        application.setNoOfUsers(142000);
+        application.setRatings(4.4f);
+        application.setCompany("UBER");
+        application.setLaunchDate(LocalDate.of(2010,5,1));
 
         ApplicationService service = new ApplicationServiceImpl();
 
@@ -27,9 +29,26 @@ public class ApplicationRunner {
         Optional<ApplicationEntity> optionalApplicationEntity = service.findByID(1);
         optionalApplicationEntity.ifPresent(System.out::println);
 
-        //service.deleteById(1);
+        service.deleteById(2);
 
-        service.updateById(2,"Facebook");
+        service.updateById(8,"Whatsapp Business");
+ */
+
+        ApplicationService service = new ApplicationServiceImpl();
+        service.deleteById(2);
+        service.getApplicationByName("WhatsApp");
+
+        service.getApplicationRatings(4.4f);
+
+        service.getApplicationCompany("META");
+
+        service.getApplicationUser(142000);
+
+        service.getApplicationLaunchDate(LocalDate.of(2010,5,1));
+
+        service.getApplicationSize("20 MB");
+
+
 
     }
 }
