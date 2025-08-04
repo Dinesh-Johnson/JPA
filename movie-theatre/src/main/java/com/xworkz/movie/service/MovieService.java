@@ -3,6 +3,7 @@ package com.xworkz.movie.service;
 import com.xworkz.movie.entity.MovieEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface MovieService {
@@ -13,4 +14,8 @@ public interface MovieService {
     Optional<MovieEntity> findByLanguage(String language);
 
     Optional<MovieEntity> findByReleaseDate(LocalDate releaseDate);
+
+    List<MovieEntity> findAllMovies();
+
+    Optional<MovieEntity> findByDirector(String director);
 }

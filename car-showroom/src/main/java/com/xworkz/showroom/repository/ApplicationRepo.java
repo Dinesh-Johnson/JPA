@@ -3,6 +3,7 @@ package com.xworkz.showroom.repository;
 import com.xworkz.showroom.entity.ApplicationEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface ApplicationRepo {
@@ -26,4 +27,6 @@ Optional<ApplicationEntity> findByID(int id);
     public ApplicationEntity getApplicationRatings(Float ratings);
 
     public ApplicationEntity getApplicationLaunchDate(LocalDate date);
+
+    List<ApplicationEntity> getAllApplication();
 }

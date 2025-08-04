@@ -4,6 +4,8 @@ import com.xworkz.movie.entity.MovieEntity;
 import com.xworkz.movie.repository.MovieRepo;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class MovieServiceImpl implements MovieService {
@@ -37,5 +39,15 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Optional<MovieEntity> findByReleaseDate(LocalDate releaseDate) {
         return repository.findByReleaseDate(releaseDate);
+    }
+
+    @Override
+    public List<MovieEntity> findAllMovies() {
+        return repository.findAllMovies();
+    }
+
+    @Override
+    public Optional<MovieEntity> findByDirector(String director) {
+        return repository.findByDirector(director);
     }
 }

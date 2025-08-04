@@ -4,6 +4,8 @@ import com.xworkz.showroom.entity.ApplicationEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class ApplicationRepoImpl implements ApplicationRepo{
@@ -267,4 +269,28 @@ public class ApplicationRepoImpl implements ApplicationRepo{
 
         return null;
     }
-}
+
+    @Override
+    public List<ApplicationEntity> getAllApplication() {
+
+        EntityManager manager = null;
+        ApplicationEntity entity = null;
+        List list=null;
+
+        try {
+            manager = emf.createEntityManager();
+
+            Query query = manager.createNamedQuery("findAllApplication");
+            list = query.getResultList();
+
+
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+
+        }
+
+        return null;
+    }
+    }

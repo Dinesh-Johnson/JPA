@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @NamedQuery(name = "findByApplicationUsers",query = "select a from ApplicationEntity a where a.noOfUsers = :users")
 @NamedQuery(name = "findByApplicationRatings",query = "select a from ApplicationEntity a where a.ratings = :ratings")
 @NamedQuery(name = "findByApplicationLaunchDate",query = "select a from ApplicationEntity a where a.launchDate = :date")
+@NamedQuery(name = "findAllApplication",query = "select a from ApplicationEntity a")
 
 /*
 

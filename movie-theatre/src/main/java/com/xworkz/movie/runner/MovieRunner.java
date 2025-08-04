@@ -32,6 +32,8 @@ public class MovieRunner {
 //        service.findByLanguage("English").ifPresent(e -> System.out.println("Found by language: " + e));
 //        service.findByReleaseDate(LocalDate.of(2024, 3, 1)).ifPresent(e -> System.out.println("Found by date: " + e));
 //
+        service.findAllMovies();
+        service.findByDirector("Denis Villeneuve");
 //        emf.close();
     }
 }

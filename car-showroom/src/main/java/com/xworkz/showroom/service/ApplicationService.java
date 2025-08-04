@@ -3,6 +3,7 @@ package com.xworkz.showroom.service;
 import com.xworkz.showroom.entity.ApplicationEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface ApplicationService {
@@ -26,5 +27,7 @@ public interface ApplicationService {
    public ApplicationEntity getApplicationRatings(Float ratings);
 
    public ApplicationEntity getApplicationLaunchDate(LocalDate date);
+
+   List<ApplicationEntity> getAllApplication();
 
 }

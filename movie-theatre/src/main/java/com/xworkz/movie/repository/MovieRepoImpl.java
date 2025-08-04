@@ -2,11 +2,10 @@ package com.xworkz.movie.repository;
 
 import com.xworkz.movie.entity.MovieEntity;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class MovieRepoImpl implements MovieRepo {
@@ -79,6 +78,33 @@ public class MovieRepoImpl implements MovieRepo {
             e.printStackTrace();
         } finally {
             em.close();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public List<MovieEntity> findAllMovies() {
+        EntityManager em = factory.createEntityManager();
+        try {
+            Query query = em.createNamedQuery("findAllMovies");
+            List list =query.getResultList();
+
+            list.forEach(System.out::println);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public Optional<MovieEntity> findByDirector(String director) {
+        EntityManager em = factory.createEntityManager();
+        try{
+            Query query =em.createNamedQuery("findByDirector").setParameter("director",director);
+            Object o = query.getFirstResult();
+            System.out.println(o);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
         return Optional.empty();
     }

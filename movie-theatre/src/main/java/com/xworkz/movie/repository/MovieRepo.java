@@ -3,6 +3,8 @@ package com.xworkz.movie.repository;
 import com.xworkz.movie.entity.MovieEntity;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 public interface MovieRepo {
@@ -14,4 +16,8 @@ public interface MovieRepo {
     Optional<MovieEntity> findByLanguage(String language);
 
     Optional<MovieEntity> findByReleaseDate(LocalDate releaseDate);
+
+    List<MovieEntity> findAllMovies();
+
+    Optional<MovieEntity> findByDirector(String director);
 }

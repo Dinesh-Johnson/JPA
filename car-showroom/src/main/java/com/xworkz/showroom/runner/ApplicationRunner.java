@@ -35,19 +35,20 @@ public class ApplicationRunner {
  */
 
         ApplicationService service = new ApplicationServiceImpl();
-        service.deleteById(2);
-        service.getApplicationByName("WhatsApp");
-
-        service.getApplicationRatings(4.4f);
-
+//        service.deleteById(2);
+//        service.getApplicationByName("WhatsApp");
+//
+//        service.getApplicationRatings(4.4f);
+//
         service.getApplicationCompany("META");
+//
+//        service.getApplicationUser(142000);
+//
+//        service.getApplicationLaunchDate(LocalDate.of(2010,5,1));
+//
+//        service.getApplicationSize("20 MB");
 
-        service.getApplicationUser(142000);
-
-        service.getApplicationLaunchDate(LocalDate.of(2010,5,1));
-
-        service.getApplicationSize("20 MB");
-
+//        service.getAllApplication();
 
 
     }

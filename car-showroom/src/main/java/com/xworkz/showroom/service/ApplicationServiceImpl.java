@@ -5,6 +5,8 @@ import com.xworkz.showroom.repository.ApplicationRepo;
 import com.xworkz.showroom.repository.ApplicationRepoImpl;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class ApplicationServiceImpl implements ApplicationService{
@@ -192,6 +194,13 @@ public class ApplicationServiceImpl implements ApplicationService{
             applicationRepo.getApplicationLaunchDate(date);
         }
         return null;
+    }
+
+    @Override
+    public List<ApplicationEntity> getAllApplication() {
+
+
+        return applicationRepo.getAllApplication();
     }
 
 
