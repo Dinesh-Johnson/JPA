@@ -5,6 +5,7 @@ import com.xworkz.movie.entity.MovieEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -41,12 +42,14 @@ public class MovieRepoImpl implements MovieRepo {
                     .setParameter("title", title)
                     .getSingleResult();
             return Optional.of(entity);
-        } catch (NoResultException e) {
-            return Optional.empty();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
+        return Optional.empty();
     }
+
 
     @Override
     public Optional<MovieEntity> findByLanguage(String language) {
@@ -71,10 +74,11 @@ public class MovieRepoImpl implements MovieRepo {
                     .setParameter("releaseDate", releaseDate)
                     .getSingleResult();
             return Optional.of(entity);
-        } catch (NoResultException e) {
-            return Optional.empty();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
+        return Optional.empty();
     }
 }

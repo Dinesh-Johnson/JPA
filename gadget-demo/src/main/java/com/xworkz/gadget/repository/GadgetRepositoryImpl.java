@@ -31,11 +31,12 @@ public class GadgetRepositoryImpl implements GadgetRepository {
             TypedQuery<GadgetEntity> query = em.createNamedQuery("findByBrand", GadgetEntity.class);
             query.setParameter("brand", brand);
             return Optional.ofNullable(query.getSingleResult());
-        } catch (Exception e) {
-            return Optional.empty();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
+        return Optional.empty();
     }
 
     @Override
@@ -45,11 +46,12 @@ public class GadgetRepositoryImpl implements GadgetRepository {
             TypedQuery<GadgetEntity> query = em.createNamedQuery("findByGadgetType", GadgetEntity.class);
             query.setParameter("type", type);
             return Optional.ofNullable(query.getSingleResult());
-        } catch (Exception e) {
-            return Optional.empty();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
+        return Optional.empty();
     }
 
     @Override
@@ -59,10 +61,11 @@ public class GadgetRepositoryImpl implements GadgetRepository {
             TypedQuery<GadgetEntity> query = em.createNamedQuery("findByLaunchDate", GadgetEntity.class);
             query.setParameter("launchDate", date);
             return Optional.ofNullable(query.getSingleResult());
-        } catch (Exception e) {
-            return Optional.empty();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
+        return Optional.empty();
     }
 }

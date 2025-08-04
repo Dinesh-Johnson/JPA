@@ -6,6 +6,7 @@ import com.xworkz.demo.entity.AlbumEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -21,10 +22,14 @@ public class AlbumRepositoryImpl implements AlbumRepository {
             em.persist(entity);
             em.getTransaction().commit();
             return true;
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
+        return Optional.empty().isPresent();
     }
+
 
     @Override
     public Optional<AlbumEntity> findByTitle(String title) {
@@ -49,12 +54,14 @@ public class AlbumRepositoryImpl implements AlbumRepository {
                     .setParameter("artist", artist)
                     .getSingleResult();
             return Optional.of(result);
-        } catch (Exception e) {
-            return Optional.empty();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
+        return Optional.empty();
     }
+
 
     @Override
     public Optional<AlbumEntity> findByReleaseDate(LocalDate date) {
@@ -64,11 +71,11 @@ public class AlbumRepositoryImpl implements AlbumRepository {
                     .setParameter("releaseDate", date)
                     .getSingleResult();
             return Optional.of(result);
-        } catch (Exception e) {
-            return Optional.empty();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
+        return Optional.empty();
     }
-
 }
