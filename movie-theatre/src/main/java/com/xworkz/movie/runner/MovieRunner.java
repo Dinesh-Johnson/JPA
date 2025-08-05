@@ -9,6 +9,8 @@ import com.xworkz.movie.service.MovieServiceImpl;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 public class MovieRunner {
     public static void main(String[] args) {
@@ -25,15 +27,18 @@ public class MovieRunner {
         entity.setBudget(190.0);
         entity.setImdbRating(8.8f);
 
-        boolean saved = service.validateAndSave(entity);
-        System.out.println("Saved: " + saved);
+//        boolean saved = service.validateAndSave(entity);
+//        System.out.println("Saved: " + saved);
 //
 //        service.findByTitle("Dune: Part Two").ifPresent(e -> System.out.println("Found by title: " + e));
 //        service.findByLanguage("English").ifPresent(e -> System.out.println("Found by language: " + e));
 //        service.findByReleaseDate(LocalDate.of(2024, 3, 1)).ifPresent(e -> System.out.println("Found by date: " + e));
 //
-        service.findAllMovies();
-        service.findByDirector("Denis Villeneuve");
+//        service.findAllMovies();
+//        service.findByDirector("Denis Villeneuve");
+
+      service.updateBudgetByDirector("Denis Villeneuve",190000000.0);
+
 //        emf.close();
     }
 }

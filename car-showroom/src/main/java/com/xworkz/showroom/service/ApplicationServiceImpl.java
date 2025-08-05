@@ -203,5 +203,11 @@ public class ApplicationServiceImpl implements ApplicationService{
         return applicationRepo.getAllApplication();
     }
 
+    @Override
+    public ApplicationEntity updateApplicationByCompany(Integer id, String companyName, String name, Integer noOfUsers) {
+
+        return applicationRepo.updateApplicationByCompany(id, companyName, name, noOfUsers);
+    }
+
 
 }

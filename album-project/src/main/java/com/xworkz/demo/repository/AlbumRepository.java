@@ -20,4 +20,12 @@ public interface AlbumRepository {
     List<AlbumEntity> findByAllAlbums();
 
     Optional<AlbumEntity> findByGenre(String genre);
+
+    Optional<AlbumEntity> findById(Integer albumId);
+
+    int updatePriceByArtist(String artist, Double price);
+
+    int updateGenreByTitle(String title, String genre);
+
+    int updateRatingById(Integer albumId, Float rating);
 }

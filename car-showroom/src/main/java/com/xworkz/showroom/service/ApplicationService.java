@@ -30,4 +30,7 @@ public interface ApplicationService {
 
    List<ApplicationEntity> getAllApplication();
 
+   ApplicationEntity updateApplicationByCompany(Integer id,String companyName,String name, Integer noOfUsers);
+
+
 }

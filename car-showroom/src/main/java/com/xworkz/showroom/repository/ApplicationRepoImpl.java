@@ -293,4 +293,19 @@ public class ApplicationRepoImpl implements ApplicationRepo{
 
         return null;
     }
+
+    @Override
+    public ApplicationEntity updateApplicationByCompany(Integer id, String company, String name, Integer noOfUsers) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction= em.getTransaction();
+
+        transaction.begin();
+        int update= em.createNamedQuery("updateUserAndNameByIdAndCompanyName").setParameter("company",company)
+                .setParameter("noOfUsers",noOfUsers)
+                .setParameter("applicationName",name)
+                .setParameter("applicationID",id).executeUpdate();
+        transaction.commit();
+        ApplicationEntity entity = em.find(ApplicationEntity.class,id);
+        return entity;
     }
+}

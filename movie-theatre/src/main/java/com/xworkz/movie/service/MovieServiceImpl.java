@@ -50,4 +50,29 @@ public class MovieServiceImpl implements MovieService {
     public Optional<MovieEntity> findByDirector(String director) {
         return repository.findByDirector(director);
     }
+
+    @Override
+    public Optional<MovieEntity> findByMovieId(Integer movieId) {
+        return repository.findByMovieId(movieId);
+    }
+
+    @Override
+    public List<MovieEntity> findByBudget(Double budget) {
+        return repository.findByBudget(budget);
+    }
+
+    @Override
+    public int updateBudgetByDirector(String director, Double budget) {
+        return repository.updateBudgetByDirector(director,budget);
+    }
+
+    @Override
+    public int updateImdbRatingByTitle(String title, Float imdbRating) {
+        return repository.updateImdbRatingByTitle(title,imdbRating);
+    }
+
+    @Override
+    public int updateLanguageById(Integer movieId, String language) {
+        return repository.updateLanguageById(movieId,language);
+    }
 }

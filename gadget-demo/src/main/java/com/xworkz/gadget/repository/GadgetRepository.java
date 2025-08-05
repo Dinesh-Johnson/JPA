@@ -19,4 +19,12 @@ public interface GadgetRepository {
     List<GadgetEntity> findAllGadget();
 
     Optional<GadgetEntity> findByPrice(Double price);
+
+    Optional<GadgetEntity> findById(Integer gadgetId);
+
+    int updateWarrantyByBrand(String brand, Integer warranty);
+
+    int updatePriceByModelName(String modelName, Double price);
+
+    int updateTypeById(Integer gadgetId, String type);
 }

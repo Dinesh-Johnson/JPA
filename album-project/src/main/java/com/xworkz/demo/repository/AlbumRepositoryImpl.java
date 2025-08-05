@@ -72,8 +72,6 @@ public class AlbumRepositoryImpl implements AlbumRepository {
             return Optional.of(result);
         } catch (PersistenceException e) {
             e.printStackTrace();
-        } finally {
-            em.close();
         }
         return Optional.empty();
     }
@@ -95,5 +93,77 @@ public class AlbumRepositoryImpl implements AlbumRepository {
         Object object= query.getSingleResult();
         System.out.println(object);
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<AlbumEntity> findById(Integer albumId) {
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createNamedQuery("findById").setParameter("albumId",albumId);
+        Object object= query.getSingleResult();
+        System.out.println(object);
+        return Optional.empty();
+    }
+
+    @Override
+    public int updatePriceByArtist(String artist, Double price) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        int updated = 0;
+
+        try {
+            tx.begin();
+            updated = em.createNamedQuery("updatePriceByArtist")
+                    .setParameter("artist", artist)
+                    .setParameter("price", price)
+                    .executeUpdate();
+            tx.commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+        return updated;
+    }
+
+    @Override
+    public int updateGenreByTitle(String title, String genre) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        int updated = 0;
+
+        try {
+            tx.begin();
+            updated = em.createNamedQuery("updateGenreByTitle")
+                    .setParameter("title", title)
+                    .setParameter("genre", genre)
+                    .executeUpdate();
+            tx.commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            if (tx.isActive()) tx.rollback();
+        }
+
+        return updated;
+    }
+
+    @Override
+    public int updateRatingById(Integer albumId, Float rating) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        int updated = 0;
+
+        try {
+            tx.begin();
+            updated = em.createNamedQuery("updateRatingById")
+                    .setParameter("albumId", albumId)
+                    .setParameter("rating", rating)
+                    .executeUpdate();
+            tx.commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            if (tx.isActive()) tx.rollback();
+        }
+        return updated;
     }
 }

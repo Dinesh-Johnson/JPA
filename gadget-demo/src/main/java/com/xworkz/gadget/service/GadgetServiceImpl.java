@@ -51,4 +51,24 @@ public class GadgetServiceImpl implements GadgetService {
     public void findByPrice(Double price) {
         repository.findByPrice(price);
     }
+
+    @Override
+    public void findById(Integer gadgetId) {
+        repository.findById(gadgetId);
+    }
+
+    @Override
+    public int updateWarrantyByBrand(String brand, Integer warranty) {
+        return repository.updateWarrantyByBrand(brand, warranty);
+    }
+
+    @Override
+    public int updatePriceByModelName(String modelName, Double price) {
+        return repository.updatePriceByModelName(modelName, price);
+    }
+
+    @Override
+    public int updateTypeById(Integer gadgetId, String type) {
+        return repository.updateTypeById(gadgetId, type);
+    }
 }

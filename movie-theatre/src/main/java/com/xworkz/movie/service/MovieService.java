@@ -18,4 +18,17 @@ public interface MovieService {
     List<MovieEntity> findAllMovies();
 
     Optional<MovieEntity> findByDirector(String director);
+
+    Optional<MovieEntity> findByMovieId(Integer movieId);
+
+    List<MovieEntity> findByBudget(Double budget);
+
+    int updateBudgetByDirector(String director, Double budget);
+
+    int updateImdbRatingByTitle(String title, Float imdbRating);
+
+    int updateLanguageById(Integer movieId, String language);
+
+
+
 }

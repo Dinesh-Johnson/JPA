@@ -114,4 +114,93 @@ public class GadgetRepositoryImpl implements GadgetRepository {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Optional<GadgetEntity> findById(Integer gadgetId) {
+        EntityManager entityManager = null;
+        EntityTransaction entityTransaction = null;
+        entityManager= emf.createEntityManager();
+        try{
+            Query query = entityManager.createNamedQuery("findById");
+            Object object = query.setParameter("gadgetId",gadgetId).getSingleResult();
+            System.out.println(object);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+                System.out.println("EntityManager is closed");
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public int updateWarrantyByBrand(String brand, Integer warranty) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        int updated = 0;
+
+        try {
+            tx.begin();
+            updated = em.createNamedQuery("updateWarrantyByBrand")
+                    .setParameter("brand", brand)
+                    .setParameter("warranty", warranty)
+                    .executeUpdate();
+            tx.commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            if (tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        return updated;
+    }
+
+    @Override
+    public int updatePriceByModelName(String modelName, Double price) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        int updated = 0;
+
+        try {
+            tx.begin();
+            updated = em.createNamedQuery("updatePriceByModelName")
+                    .setParameter("modelName", modelName)
+                    .setParameter("price", price)
+                    .executeUpdate();
+            tx.commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            if (tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        return updated;
+    }
+
+    @Override
+    public int updateTypeById(Integer gadgetId, String type) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        int updated = 0;
+
+        try {
+            tx.begin();
+            updated = em.createNamedQuery("updateTypeById")
+                    .setParameter("gadgetId", gadgetId)
+                    .setParameter("type", type)
+                    .executeUpdate();
+            tx.commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            if (tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        return updated;
+    }
 }

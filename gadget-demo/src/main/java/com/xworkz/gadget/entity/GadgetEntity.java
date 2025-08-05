@@ -18,6 +18,13 @@ import java.time.LocalDate;
 @NamedQuery(name = "findByLaunchDate", query = "select g from GadgetEntity g where g.launchDate = :launchDate")
 @NamedQuery(name = "findAllApplications", query = "select a from GadgetEntity a")
 @NamedQuery(name = "findByPrice", query = "select a from GadgetEntity a where a.price = :price")
+@NamedQuery(name = "findById", query = "select a from GadgetEntity a where a.gadgetId = gadgetId")
+@NamedQuery(name = "updateWarrantyByBrand",
+        query = "UPDATE GadgetEntity g SET g.warrantyYears = :warranty WHERE g.brand = :brand")
+@NamedQuery(name = "updatePriceByModelName",
+        query = "UPDATE GadgetEntity g SET g.price = :price WHERE g.modelName = :modelName")
+@NamedQuery(name = "updateTypeById",
+        query = "UPDATE GadgetEntity g SET g.type = :type WHERE g.gadgetId = :gadgetId")
 public class GadgetEntity {
 
     @Id

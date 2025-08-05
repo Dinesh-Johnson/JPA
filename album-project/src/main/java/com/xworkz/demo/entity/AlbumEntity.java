@@ -16,6 +16,13 @@ import java.time.LocalDate;
 @NamedQuery(name = "findByReleaseDate", query = "SELECT a FROM AlbumEntity a WHERE a.releaseDate = :releaseDate")
 @NamedQuery(name = "findAllAlbums", query = "SELECT a FROM AlbumEntity a")
 @NamedQuery(name = "findByGenre", query = "SELECT a FROM AlbumEntity a WHERE a.genre = :genre")
+@NamedQuery(name = "findById", query = "SELECT a FROM AlbumEntity a WHERE a.albumId = :albumId")
+@NamedQuery(name = "updatePriceByArtist",
+        query = "UPDATE AlbumEntity a SET a.price = :price WHERE a.artist = :artist")
+@NamedQuery(name = "updateGenreByTitle",
+        query = "UPDATE AlbumEntity a SET a.genre = :genre WHERE a.title = :title")
+@NamedQuery(name = "updateRatingById",
+        query = "UPDATE AlbumEntity a SET a.rating = :rating WHERE a.albumId = :albumId")
 public class AlbumEntity {
 
     @Id

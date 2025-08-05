@@ -18,4 +18,12 @@ public interface GadgetService {
     List<GadgetEntity> findAllGadget();
 
     void findByPrice(Double price);
+
+    void  findById(Integer gadgetId);
+
+    int updateWarrantyByBrand(String brand, Integer warranty);
+
+    int updatePriceByModelName(String modelName, Double price);
+
+    int updateTypeById(Integer gadgetId, String type);
 }

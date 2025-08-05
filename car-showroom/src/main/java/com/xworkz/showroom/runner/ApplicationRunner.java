@@ -40,7 +40,7 @@ public class ApplicationRunner {
 //
 //        service.getApplicationRatings(4.4f);
 //
-        service.getApplicationCompany("META");
+  //       service.getApplicationCompany("META");
 //
 //        service.getApplicationUser(142000);
 //
@@ -49,6 +49,8 @@ public class ApplicationRunner {
 //        service.getApplicationSize("20 MB");
 
 //        service.getAllApplication();
+        ApplicationEntity update =service.updateApplicationByCompany(2,"Facebook","META",2500140);
+        System.out.println(update);
 
 
     }

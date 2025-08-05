@@ -20,6 +20,13 @@ import javax.persistence.*;
 @NamedQuery(name = "findByReleaseDate", query = "select m from MovieEntity m where m.releaseDate = :releaseDate")
 @NamedQuery(name = "findAllMovies", query = "SELECT a from  MovieEntity a")
 @NamedQuery(name = "findByDirector", query = "select a from MovieEntity a where a.director=:director")
+@NamedQuery(name = "findById", query = "select a from MovieEntity a where a.movieId = :movieId")
+@NamedQuery(name = "updateImdbRatingByTitle",
+        query = "UPDATE MovieEntity m SET m.imdbRating = :imdbRating WHERE m.title = :title")
+@NamedQuery(name = "updateBudgetByDirector",
+        query = "UPDATE MovieEntity m SET m.budget = :budget WHERE m.director = :director")
+@NamedQuery(name = "updateLanguageById",
+        query = "UPDATE MovieEntity m SET m.language = :language WHERE m.movieId = :movieId")
 public class MovieEntity {
 
     @Id

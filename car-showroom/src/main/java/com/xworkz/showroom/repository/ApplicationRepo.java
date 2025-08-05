@@ -8,25 +8,27 @@ import java.util.Optional;
 
 public interface ApplicationRepo {
 
-    public void saveApplication(ApplicationEntity entity);
+    void saveApplication(ApplicationEntity entity);
 
 Optional<ApplicationEntity> findByID(int id);
 
-    public void deleteById(int id);
+    void deleteById(int id);
 
-    public boolean updateById(int id, String company);
+    boolean updateById(int id, String company);
 
-    public ApplicationEntity getApplicationByName(String name);
+    ApplicationEntity getApplicationByName(String name);
 
-    public ApplicationEntity getApplicationSize(String size);
+    ApplicationEntity getApplicationSize(String size);
 
-    public ApplicationEntity getApplicationCompany(String company);
+    ApplicationEntity getApplicationCompany(String company);
 
-    public ApplicationEntity getApplicationUser(Integer user);
+    ApplicationEntity getApplicationUser(Integer user);
 
-    public ApplicationEntity getApplicationRatings(Float ratings);
+    ApplicationEntity getApplicationRatings(Float ratings);
 
-    public ApplicationEntity getApplicationLaunchDate(LocalDate date);
+    ApplicationEntity getApplicationLaunchDate(LocalDate date);
 
     List<ApplicationEntity> getAllApplication();
+
+     ApplicationEntity updateApplicationByCompany(Integer id,String companyName,String name, Integer noOfUsers);
 }

@@ -108,4 +108,101 @@ public class MovieRepoImpl implements MovieRepo {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Optional<MovieEntity> findByMovieId(Integer movieId) {
+        EntityManager em = factory.createEntityManager();
+        try{
+            Query query =em.createNamedQuery("findById").setParameter("movieId",movieId);
+            Object o = query.getFirstResult();
+            System.out.println(o);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public List<MovieEntity> findByBudget(Double budget) {
+
+        EntityManager em = factory.createEntityManager();
+        try{
+            TypedQuery<MovieEntity>  query= em.createQuery("select a from MovieEntity a where a.budget = : budget", MovieEntity.class).setParameter("budget",budget);
+            List list = query.getResultList();
+
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public int updateBudgetByDirector(String director, Double budget) {
+        EntityManager em= factory.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        int updatedRows =0;
+        try {
+            transaction.begin();
+            updatedRows = em.createNamedQuery("updateBudgetByDirector")
+                    .setParameter("director", director)
+                    .setParameter("budget", budget)
+                    .executeUpdate();
+            transaction.commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+        return updatedRows;
+    }
+
+    @Override
+    public int updateImdbRatingByTitle(String title, Float imdbRating) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        int updatedRows = 0;
+
+        try {
+            transaction.begin();
+            updatedRows = em.createNamedQuery("updateImdbRatingByTitle")
+                    .setParameter("title", title)
+                    .setParameter("imdbRating", imdbRating)
+                    .executeUpdate();
+            transaction.commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+        return updatedRows;
+    }
+
+    @Override
+    public int updateLanguageById(Integer movieId, String language) {
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        int updatedRows = 0;
+
+        try {
+            transaction.begin();
+            updatedRows = em.createNamedQuery("updateLanguageById")
+                    .setParameter("movieId", movieId)
+                    .setParameter("language", language)
+                    .executeUpdate();
+            transaction.commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        } finally {
+            em.close();
+        }
+
+        return updatedRows;
+    }
 }

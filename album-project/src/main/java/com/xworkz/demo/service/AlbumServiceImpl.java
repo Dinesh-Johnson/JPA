@@ -51,4 +51,24 @@ public class AlbumServiceImpl implements AlbumService {
     public Optional<AlbumEntity> findByGenre(String genre) {
         return repo.findByGenre(genre);
     }
+
+    @Override
+    public Optional<AlbumEntity> findById(Integer albumId) {
+        return repo.findById(albumId);
+    }
+
+    @Override
+    public int updatePriceByArtist(String artist, Double price) {
+        return repo.updatePriceByArtist(artist,price);
+    }
+
+    @Override
+    public int updateGenreByTitle(String title, String genre) {
+        return repo.updateGenreByTitle(title, genre);
+    }
+
+    @Override
+    public int updateRatingById(Integer albumId, Float rating) {
+        return repo.updateRatingById(albumId, rating);
+    }
 }
