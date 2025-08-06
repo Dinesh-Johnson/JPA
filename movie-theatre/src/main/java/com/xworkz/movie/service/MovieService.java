@@ -23,7 +23,7 @@ public interface MovieService {
 
     List<MovieEntity> findByBudget(Double budget);
 
-    int updateBudgetByDirector(String director, Double budget);
+    void updateBudgetByDirector(String director, Double budget);
 
     int updateImdbRatingByTitle(String title, Float imdbRating);
 
