@@ -31,4 +31,6 @@ public interface MovieRepo {
 
     int updateLanguageById(Integer movieId, String language);
 
+    List<Object[]>getMovieNamesDirectorAndLanguage();
+
 }

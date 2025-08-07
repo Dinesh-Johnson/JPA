@@ -27,5 +27,7 @@ public interface AlbumService {
     int updateGenreByTitle(String title, String genre);
 
     int updateRatingById(Integer albumId, Float rating);
+
+    List<Object[]> getTitleArtistAndGenre();
 }
 

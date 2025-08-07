@@ -160,10 +160,28 @@ public class AlbumRepositoryImpl implements AlbumRepository {
                     .setParameter("rating", rating)
                     .executeUpdate();
             tx.commit();
+            System.out.println("No of rows Affected :"+updated);
         } catch (PersistenceException e) {
             e.printStackTrace();
             if (tx.isActive()) tx.rollback();
         }
         return updated;
+    }
+
+    @Override
+    public List<Object[]> getTitleArtistAndGenre() {
+        EntityManager em = null;
+        List<Object[]> list=null;
+        try{
+            em = emf.createEntityManager();
+            list =em.createNamedQuery("getTitleArtistAndGenre").getResultList();
+        }catch (PersistenceException e){
+            e.printStackTrace();
+        }finally {
+            if (emf.isOpen()){
+                emf.close();
+            }
+        }
+        return list;
     }
 }

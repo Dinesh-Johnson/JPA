@@ -71,4 +71,9 @@ public class AlbumServiceImpl implements AlbumService {
     public int updateRatingById(Integer albumId, Float rating) {
         return repo.updateRatingById(albumId, rating);
     }
+
+    @Override
+    public List<Object[]> getTitleArtistAndGenre() {
+        return repo.getTitleArtistAndGenre();
+    }
 }

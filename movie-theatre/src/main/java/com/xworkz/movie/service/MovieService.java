@@ -29,6 +29,9 @@ public interface MovieService {
 
     int updateLanguageById(Integer movieId, String language);
 
+    List<Object[]>getMovieNamesDirectorAndLanguage();
+
+
 
 
 }

@@ -23,6 +23,7 @@ import java.time.LocalDate;
         query = "UPDATE AlbumEntity a SET a.genre = :genre WHERE a.title = :title")
 @NamedQuery(name = "updateRatingById",
         query = "UPDATE AlbumEntity a SET a.rating = :rating WHERE a.albumId = :albumId")
+@NamedQuery(name = "getTitleArtistAndGenre",query = "select a.title,a.artist,a.genre from AlbumEntity a")
 public class AlbumEntity {
 
     @Id

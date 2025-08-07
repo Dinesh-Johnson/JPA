@@ -194,6 +194,7 @@ public class GadgetRepositoryImpl implements GadgetRepository {
                     .setParameter("type", type)
                     .executeUpdate();
             tx.commit();
+            System.out.println("No of rows Affected :"+updated);
         } catch (PersistenceException e) {
             e.printStackTrace();
             if (tx.isActive()) tx.rollback();
@@ -202,5 +203,23 @@ public class GadgetRepositoryImpl implements GadgetRepository {
         }
 
         return updated;
+    }
+
+    @Override
+    public List<Object[]> getBrandTypeAndModelName() {
+        EntityManager em=null;
+        List<Object[]> list=null;
+
+        try {
+            em = emf.createEntityManager();
+            list = em.createNamedQuery("getBrandTypeAndModelName").getResultList();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }finally {
+            if (em.isOpen()){
+                em.close();
+            }
+        }
+        return list;
     }
 }

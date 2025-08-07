@@ -71,4 +71,9 @@ public class GadgetServiceImpl implements GadgetService {
     public int updateTypeById(Integer gadgetId, String type) {
         return repository.updateTypeById(gadgetId, type);
     }
+
+    @Override
+    public List<Object[]> getBrandTypeAndModelName() {
+        return repository.getBrandTypeAndModelName();
+    }
 }

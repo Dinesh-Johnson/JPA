@@ -194,6 +194,7 @@ public class MovieRepoImpl implements MovieRepo {
                     .setParameter("language", language)
                     .executeUpdate();
             transaction.commit();
+            System.out.println("No of rows Affected :"+updatedRows);
         } catch (PersistenceException e) {
             e.printStackTrace();
             if (transaction.isActive()) {
@@ -204,5 +205,19 @@ public class MovieRepoImpl implements MovieRepo {
         }
 
         return updatedRows;
+    }
+
+    @Override
+    public List<Object[]> getMovieNamesDirectorAndLanguage() {
+        EntityManager em= null;
+        List<Object[]> list=null;
+
+        try {
+            em = factory.createEntityManager();
+            list = em.createNamedQuery("getMovieNamesDirectorAndLanguage").getResultList();
+        }catch (PersistenceException e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

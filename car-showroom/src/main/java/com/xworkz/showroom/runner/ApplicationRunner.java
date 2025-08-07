@@ -7,6 +7,9 @@ import com.xworkz.showroom.service.ApplicationService;
 import com.xworkz.showroom.service.ApplicationServiceImpl;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public class ApplicationRunner {
@@ -49,8 +52,23 @@ public class ApplicationRunner {
 //        service.getApplicationSize("20 MB");
 
 //        service.getAllApplication();
-        ApplicationEntity update =service.updateApplicationByCompany(2,"Facebook","META",2500140);
-        System.out.println(update);
+//        ApplicationEntity update =service.updateApplicationByCompany(2,"Facebook","META",2500140);
+//        System.out.println(update);
+//
+//        List<String> names =service.findAllApplicationName();
+//        names.forEach(System.out::println);
+//
+//        List<Float> ratings = service.findAllApplicationRatings();
+//        ratings.forEach(System.out::println);
+//
+//        List<Object> date = service.findAllApplicationLaunchDate();
+//        date.forEach(System.out::println);
+
+      List<Object[]> list  = service.findAllApplicationNameAndUsers();
+//        for(Object[] o = list){
+//            System.out.println("Application Name:"+o[0]+"No of Users :"+o[1]);
+//        }
+        list.stream().map(e->e[0]+"---"+e[1]+"  users").forEach(System.out::println);
 
 
     }

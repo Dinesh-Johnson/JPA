@@ -4,9 +4,7 @@ import com.xworkz.showroom.entity.ApplicationEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ApplicationRepoImpl implements ApplicationRepo{
 
@@ -307,5 +305,94 @@ public class ApplicationRepoImpl implements ApplicationRepo{
         transaction.commit();
         ApplicationEntity entity = em.find(ApplicationEntity.class,id);
         return entity;
+    }
+
+    @Override
+    public List<String> findAllApplicationName() {
+        EntityManager em = null;
+        List<String> list=null;
+
+        try{
+            em = emf.createEntityManager();
+            list = em.createNamedQuery("findAllApplicationName").getResultList();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            list = Collections.emptyList();
+        }finally {
+            if (em!=null){
+                em.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<String> findAllApplicationCompanyName() {
+        EntityManager em = null;
+        List<String> list=null;
+
+        try{
+            em = emf.createEntityManager();
+            list = em.createNamedQuery("findAllApplicationCompanyName").getResultList();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            list = Collections.emptyList();
+        }finally {
+            if (em!=null){
+                em.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<Float> findAllApplicationRatings() {
+
+        EntityManager em = null;
+        List<Float> list=null;
+
+        try{
+            em = emf.createEntityManager();
+            list = em.createNamedQuery("findAllApplicationRatings").getResultList();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            list = Collections.emptyList();
+        }finally {
+            if (em!=null){
+                em.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<Object> findAllApplicationLaunchDate() {
+        EntityManager em= null;
+        List<Object> list =null;
+        try{
+            em= emf.createEntityManager();
+            list = em.createNamedQuery("findAllApplicationLaunchDate").getResultList();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }finally {
+            if(em!=null)
+            em.close();
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<Object[]>  findAllApplicationNameAndUsers() {
+        EntityManager em = null;
+        List<Object[]>  list = null;
+
+        try{
+            em= emf.createEntityManager();
+            list = em.createNamedQuery("findAllApplicationNameAndUsers").getResultList();
+        }catch (PersistenceException w){
+            w.printStackTrace();
+        }
+        return list;
     }
 }

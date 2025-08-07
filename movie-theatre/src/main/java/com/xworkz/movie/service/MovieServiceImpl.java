@@ -4,6 +4,7 @@ import com.xworkz.movie.entity.MovieEntity;
 import com.xworkz.movie.repository.MovieRepo;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,5 +74,10 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public int updateLanguageById(Integer movieId, String language) {
         return repository.updateLanguageById(movieId,language);
+    }
+
+    @Override
+    public List<Object[]> getMovieNamesDirectorAndLanguage() {
+        return repository.getMovieNamesDirectorAndLanguage();
     }
 }

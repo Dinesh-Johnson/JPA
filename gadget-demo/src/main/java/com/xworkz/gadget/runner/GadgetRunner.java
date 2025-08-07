@@ -7,6 +7,7 @@ import com.xworkz.gadget.service.GadgetService;
 import com.xworkz.gadget.service.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class GadgetRunner {
     public static void main(String[] args) {
@@ -27,6 +28,10 @@ public class GadgetRunner {
 //        service.findAndPrintByType("Smartwatch");
 //        service.findAndPrintByLaunchDate(LocalDate.of(2023, 9, 12));
 //        service.findAllGadget();
-        service.findByPrice(89999.0);
+      //  service.findByPrice(89999.0);
+
+        List<Object[]> list = service.getBrandTypeAndModelName();
+
+        list.stream().map(e->e[0]+"--"+e[1]+"--"+e[2]).forEach(System.out::println);
     }
 }

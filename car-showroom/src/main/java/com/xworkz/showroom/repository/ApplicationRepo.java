@@ -4,6 +4,8 @@ import com.xworkz.showroom.entity.ApplicationEntity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public interface ApplicationRepo {
@@ -31,4 +33,14 @@ Optional<ApplicationEntity> findByID(int id);
     List<ApplicationEntity> getAllApplication();
 
      ApplicationEntity updateApplicationByCompany(Integer id,String companyName,String name, Integer noOfUsers);
+
+     List<String> findAllApplicationName();
+
+     List<String> findAllApplicationCompanyName();
+
+     List<Float> findAllApplicationRatings();
+
+     List<Object> findAllApplicationLaunchDate();
+
+     List<Object[]> findAllApplicationNameAndUsers();
 }

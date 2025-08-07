@@ -7,6 +7,7 @@ import com.xworkz.showroom.repository.ApplicationRepoImpl;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ApplicationServiceImpl implements ApplicationService{
@@ -207,6 +208,31 @@ public class ApplicationServiceImpl implements ApplicationService{
     public ApplicationEntity updateApplicationByCompany(Integer id, String companyName, String name, Integer noOfUsers) {
 
         return applicationRepo.updateApplicationByCompany(id, companyName, name, noOfUsers);
+    }
+
+    @Override
+    public List<String> findAllApplicationName() {
+        return applicationRepo.findAllApplicationName();
+    }
+
+    @Override
+    public List<String> findAllApplicationCompanyName() {
+        return applicationRepo.findAllApplicationCompanyName();
+    }
+
+    @Override
+    public List<Float> findAllApplicationRatings() {
+        return applicationRepo.findAllApplicationRatings();
+    }
+
+    @Override
+    public List<Object> findAllApplicationLaunchDate() {
+        return applicationRepo.findAllApplicationLaunchDate();
+    }
+
+    @Override
+    public List<Object[]> findAllApplicationNameAndUsers() {
+        return applicationRepo.findAllApplicationNameAndUsers();
     }
 
 

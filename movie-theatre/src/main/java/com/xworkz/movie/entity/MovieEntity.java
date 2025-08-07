@@ -27,6 +27,7 @@ import javax.persistence.*;
         query = "UPDATE MovieEntity m SET m.budget = :budget WHERE m.director = :director")
 @NamedQuery(name = "updateLanguageById",
         query = "UPDATE MovieEntity m SET m.language = :language WHERE m.movieId = :movieId")
+@NamedQuery(name = "getMovieNamesDirectorAndLanguage",query = "select a.title,a.director,language from MovieEntity a")
 public class MovieEntity {
 
     @Id

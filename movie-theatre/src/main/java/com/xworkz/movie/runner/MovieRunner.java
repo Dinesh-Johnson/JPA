@@ -37,7 +37,10 @@ public class MovieRunner {
 //        service.findAllMovies();
 //        service.findByDirector("Denis Villeneuve");
 
-      service.updateBudgetByDirector("Denis Villeneuve",190000000.0);
+     // service.updateBudgetByDirector("Denis Villeneuve",190000000.0);
+
+        List<Object[]>list = service.getMovieNamesDirectorAndLanguage();
+        list.stream().map(e->e[0]+"-"+e[1]+"-"+e[2]).forEach(System.out::println);
 
 //        emf.close();
     }

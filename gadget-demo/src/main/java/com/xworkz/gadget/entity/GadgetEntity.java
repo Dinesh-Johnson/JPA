@@ -25,6 +25,7 @@ import java.time.LocalDate;
         query = "UPDATE GadgetEntity g SET g.price = :price WHERE g.modelName = :modelName")
 @NamedQuery(name = "updateTypeById",
         query = "UPDATE GadgetEntity g SET g.type = :type WHERE g.gadgetId = :gadgetId")
+@NamedQuery(name = "getBrandTypeAndModelName",query = "select a.brand,a.type,a.modelName from GadgetEntity a")
 public class GadgetEntity {
 
     @Id

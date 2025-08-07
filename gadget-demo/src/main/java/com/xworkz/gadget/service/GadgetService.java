@@ -26,4 +26,7 @@ public interface GadgetService {
     int updatePriceByModelName(String modelName, Double price);
 
     int updateTypeById(Integer gadgetId, String type);
+
+    List<Object[]> getBrandTypeAndModelName();
+
 }
