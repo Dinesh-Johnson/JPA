@@ -16,7 +16,7 @@ public class ApplicationRepoImpl implements ApplicationRepo{
         EntityManager manager = null;
         EntityTransaction transaction = null;
 
-        try {
+        try {//save
 
             manager = emf.createEntityManager();
             transaction = manager.getTransaction();
@@ -39,7 +39,7 @@ public class ApplicationRepoImpl implements ApplicationRepo{
     }
 
     @Override
-    public Optional<ApplicationEntity> findByID(int id) {
+    public Optional<ApplicationEntity> findByID(int id) {//Read
 
         EntityManager manager = null;
         ApplicationEntity entity=null;
@@ -66,7 +66,7 @@ public class ApplicationRepoImpl implements ApplicationRepo{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(int id) {//delete
 
         EntityManager manager = null;
         EntityTransaction transaction =null;

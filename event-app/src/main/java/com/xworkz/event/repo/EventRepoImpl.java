@@ -1,7 +1,7 @@
-package com.xworkz.album.repo;
+package com.xworkz.event.repo;
 
 
-import com.xworkz.album.entity.AlbumEntity;
+import com.xworkz.event.entity.EventEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -9,11 +9,11 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-public class AlbumRepoImpl implements AlbumRepo{
+public class EventRepoImpl implements EventRepo {
 
     private static EntityManagerFactory emf=Persistence.createEntityManagerFactory("x-workz");
     @Override
-    public boolean save(AlbumEntity entity) {
+    public boolean save(EventEntity entity) {
         System.out.println("Entity :"+entity);
         EntityManager em =null;
         EntityTransaction et =null;
@@ -27,34 +27,37 @@ public class AlbumRepoImpl implements AlbumRepo{
         }catch (PersistenceException e){
             e.printStackTrace();
             et.rollback();
+        }finally {
+            if (emf.isOpen()){
+                emf.close();
+            }
+            if (em.isOpen()){
+                em.close();
+            }
         }
 
-        if (emf.isOpen()){
-            emf.close();
-        }
-        if (em.isOpen()){
-            em.close();
-        }
+
+
 
         return true;
     }
 
     @Override
-    public List<AlbumEntity> getAllAlbum() {
-        System.out.println("Repo getAllAlbum....");
-        EntityManager em =null;
-        List<AlbumEntity> list = null;
+    public List<EventEntity> getAllEvents() {
+        EntityManager em= null;
+        List<EventEntity> list= null;
 
         try{
             em = emf.createEntityManager();
-
-            list = em.createNamedQuery("getAllAlbum").getResultList();
-
+            list=em.createNamedQuery("getAllEvents").getResultList();
             list.stream().forEach(System.out::println);
 
         } catch (PersistenceException e) {
             e.printStackTrace();
-
+        }finally {
+            if (emf.isOpen()){
+                em.close();
+            }
         }
         return list;
     }

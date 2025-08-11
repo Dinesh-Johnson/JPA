@@ -1,9 +1,10 @@
-package com.xworkz.album.controller;
+package com.xworkz.pet.controller;
 
-import com.xworkz.album.dto.AlbumDTO;
-import com.xworkz.album.service.AlbumService;
+import com.xworkz.pet.dto.PetDTO;
+import com.xworkz.pet.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import java.util.List;
 public class AppController {
 
     @Autowired
-    private AlbumService service;
+    private PetService service;
 
     public AppController() {
         System.out.println("App Controller....");
@@ -30,7 +31,7 @@ public class AppController {
     }
 
     @PostMapping("register")
-    public String albumRegister(AlbumDTO dto, Model model){
+    public String albumRegister(PetDTO dto, Model model){
         System.out.println("Calling Album Register page...");
         System.out.println(dto);
 
@@ -43,11 +44,11 @@ public class AppController {
         return "register";
     }
 
-    @GetMapping("getAllAlbum")
+    @GetMapping("getAllPets")
     public String getAllAlbum(Model model){
 
-        System.out.println("getAllAlbum....");
-        List<AlbumDTO> dto =service.getAllAlbum();
+        System.out.println("getAllPets....");
+        List<PetDTO> dto =service.getAllAlbum();
         model.addAttribute("listOfDto",dto);
         dto.forEach(System.out::println);
         return "listOfDto";

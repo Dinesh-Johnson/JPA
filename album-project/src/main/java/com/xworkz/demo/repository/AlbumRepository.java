@@ -30,4 +30,6 @@ public interface AlbumRepository {
     int updateRatingById(Integer albumId, Float rating);
 
     List<Object[]> getTitleArtistAndGenre();
+
+    List<String[]> getNameAndArtist();
 }

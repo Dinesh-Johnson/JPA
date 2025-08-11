@@ -29,5 +29,8 @@ public interface AlbumService {
     int updateRatingById(Integer albumId, Float rating);
 
     List<Object[]> getTitleArtistAndGenre();
+
+    List<String[]> getNameAndArtist();
+
 }
 

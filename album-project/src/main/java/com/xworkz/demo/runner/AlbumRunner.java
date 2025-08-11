@@ -7,6 +7,8 @@ import com.xworkz.demo.service.AlbumService;
 import com.xworkz.demo.service.AlbumServiceImpl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AlbumRunner {
@@ -29,7 +31,13 @@ public class AlbumRunner {
         //service.getByTitle("Echoes").ifPresent(a -> System.out.println("Found: " + a.getArtist()));
   //      service.findByAllAlbums();
     //    service.findByGenre("Progressive Rock");
-        List<Object[]> list = service.getTitleArtistAndGenre();
-        list.stream().map(e->e[0]+"--"+e[1]+"--"+e[2]).forEach(System.out::println);
+//        List<Object[]> list = service.getTitleArtistAndGenre();
+//        list.stream().map(e->e[0]+"--"+e[1]+"--"+e[2]).forEach(System.out::println);
+
+        System.out.println("-------------------------------------------------------");
+
+        List<String[]> list1= service.getNameAndArtist();
+        list1.forEach(a-> System.out.println(Arrays.toString(a)));
+
     }
 }

@@ -6,6 +6,10 @@ import com.xworkz.album.repo.AlbumRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AlbumServiceImpl implements AlbumService{
 
@@ -64,8 +68,28 @@ public class AlbumServiceImpl implements AlbumService{
         entity.setPrice(dto.getPrice());
         entity.setReleaseDate(dto.getReleaseDate());
         entity.setTitle(dto.getTitle());
-        entity.setRating(dto.getRating());
+        entity.setArtist(dto.getArtist());
 
         return repo.save(entity);
+    }
+
+    @Override
+    public List<AlbumDTO> getAllAlbum() {
+        List<AlbumDTO> dtos =null;
+        List<AlbumEntity> entities = repo.getAllAlbum();
+        System.out.println("Serivice MEthod.....");
+        dtos = entities.stream().map(e->{
+            AlbumDTO dto = new AlbumDTO();
+            dto.setRating(e.getRating());
+            dto.setTitle(e.getTitle());
+            dto.setPrice(e.getPrice());
+            dto.setGenre(e.getGenre());
+            dto.setArtist(e.getArtist());
+            dto.setReleaseDate(e.getReleaseDate());
+
+            return dto;
+        }).collect(Collectors.toList());
+
+        return dtos;
     }
 }

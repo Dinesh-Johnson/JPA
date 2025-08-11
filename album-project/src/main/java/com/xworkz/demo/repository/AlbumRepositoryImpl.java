@@ -184,4 +184,23 @@ public class AlbumRepositoryImpl implements AlbumRepository {
         }
         return list;
     }
+
+    @Override
+    public List<String[]> getNameAndArtist() {
+        EntityManager em = null;
+        List<String[]> list=null;
+        try{
+            em = emf.createEntityManager();
+            System.out.println("Entity Manger Created");
+            list =em.createNamedQuery("getNameAndArtist").getResultList();
+            System.out.println("getBrandAndModelNAme");
+        }catch (PersistenceException e){
+            e.printStackTrace();
+        }finally {
+            if (emf.isOpen()){
+                emf.close();
+            }
+        }
+        return list;
+    }
 }

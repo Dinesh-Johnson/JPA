@@ -76,4 +76,9 @@ public class AlbumServiceImpl implements AlbumService {
     public List<Object[]> getTitleArtistAndGenre() {
         return repo.getTitleArtistAndGenre();
     }
+
+    @Override
+    public List<String[]> getNameAndArtist() {
+        return repo.getNameAndArtist();
+    }
 }

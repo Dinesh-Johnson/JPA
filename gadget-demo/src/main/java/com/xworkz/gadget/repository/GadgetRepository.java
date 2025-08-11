@@ -29,4 +29,5 @@ public interface GadgetRepository {
     int updateTypeById(Integer gadgetId, String type);
 
     List<Object[]> getBrandTypeAndModelName();
+
 }
