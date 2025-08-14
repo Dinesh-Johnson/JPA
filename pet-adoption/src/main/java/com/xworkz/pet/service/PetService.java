@@ -11,4 +11,6 @@ public interface PetService {
 
     List<PetDTO> getAllAlbum();
 
+    PetDTO fetchDataByID(Integer id);
+
 }

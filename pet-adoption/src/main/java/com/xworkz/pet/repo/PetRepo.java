@@ -10,4 +10,6 @@ public interface PetRepo {
 
     List<PetEntity> getAllPets();
 
+    PetEntity fetchDataByID(Integer id);
+
 }

@@ -70,6 +70,7 @@ public class EventServiceImpl implements EventService {
         List<EventEntity> entities = repo.getAllEvents();
         List<EventDTO> dtos = entities.stream().map(e->{
             EventDTO dto =new EventDTO();
+            dto.setId(e.getId());
             dto.setDate(e.getDate());
             dto.setLocation(e.getLocation());
             dto.setName(e.getName());
@@ -79,5 +80,18 @@ public class EventServiceImpl implements EventService {
             return dto;
         }).collect(Collectors.toList());
         return dtos;
+    }
+
+    @Override
+    public EventDTO fetchDataByID(Integer id) {
+        EventEntity entity =repo.fetchDataByID(id);
+        EventDTO dto = new EventDTO();
+        dto.setId(entity.getId());
+        dto.setDate(entity.getDate());
+        dto.setLocation(entity.getLocation());
+        dto.setName(entity.getName());
+        dto.setOrganizer(entity.getOrganizer());
+        dto.setTicketPrice(entity.getTicketPrice());
+        return dto;
     }
 }

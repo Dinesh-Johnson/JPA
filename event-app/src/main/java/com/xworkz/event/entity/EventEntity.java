@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Table(name = "event_details")
 @Data
 @NamedQuery(name = "getAllEvents",query = "select a from EventEntity a")
+@NamedQuery(name = "fetchDataByID",query = "select a from EventEntity a where a.id =:id")
 public class EventEntity {
 
     @Id

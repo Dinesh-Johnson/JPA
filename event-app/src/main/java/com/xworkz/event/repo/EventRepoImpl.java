@@ -3,6 +3,7 @@ package com.xworkz.event.repo;
 
 import com.xworkz.event.entity.EventEntity;
 import org.springframework.stereotype.Repository;
+import sun.util.locale.StringTokenIterator;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -62,9 +63,24 @@ public class EventRepoImpl implements EventRepo {
         return list;
     }
 
-    public  static void closeEntityMangerFactory(){
-        if (emf!=null && emf.isOpen()){
-            emf.close();
+    @Override
+    public EventEntity fetchDataByID(Integer id) {
+        EntityManager em = null;
+        EventEntity entity =null;
+        try{
+
+            em= emf.createEntityManager();
+            entity = (EventEntity) em.createNamedQuery("fetchDataByID").setParameter("id",id).getSingleResult();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
+        return entity;
     }
+
+//    public  static void closeEntityMangerFactory(){
+//        if (emf!=null && emf.isOpen()){
+//            emf.close();
+//        }
+//    }
 }

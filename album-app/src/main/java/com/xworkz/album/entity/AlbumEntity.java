@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Table(name = "album_name")
 @Data
 @NamedQuery(name = "getAllAlbum",query = "select a from AlbumEntity a")
+@NamedQuery(name = "fetchDataByID",query = "select a from AlbumEntity a where a.albumId =:id")
+
 public class AlbumEntity {
 
     @Id

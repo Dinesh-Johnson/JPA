@@ -68,6 +68,7 @@ public class PetServiceImpl implements PetService {
         List<PetEntity> entities = repo.getAllPets();
         List<PetDTO> dtos = entities.stream().map(e->{
             PetDTO dto = new PetDTO();
+            dto.setId(e.getId());
             dto.setType(e.getType());
             dto.setName(e.getName());
             dto.setBreed(e.getBreed());
@@ -78,5 +79,18 @@ public class PetServiceImpl implements PetService {
         }).collect(Collectors.toList());
 
         return dtos;
+    }
+
+    @Override
+    public PetDTO fetchDataByID(Integer id) {
+        PetEntity e = repo.fetchDataByID(id);
+        PetDTO dto = new PetDTO();
+        dto.setId(e.getId());
+        dto.setType(e.getType());
+        dto.setName(e.getName());
+        dto.setBreed(e.getBreed());
+        dto.setAge(e.getAge());
+        dto.setAdoptionFee(e.getAdoptionFee());
+        return dto;
     }
 }

@@ -80,6 +80,7 @@ public class AlbumServiceImpl implements AlbumService{
         System.out.println("Serivice MEthod.....");
         dtos = entities.stream().map(e->{
             AlbumDTO dto = new AlbumDTO();
+            dto.setAlbumId(e.getAlbumId());
             dto.setRating(e.getRating());
             dto.setTitle(e.getTitle());
             dto.setPrice(e.getPrice());
@@ -91,5 +92,19 @@ public class AlbumServiceImpl implements AlbumService{
         }).collect(Collectors.toList());
 
         return dtos;
+    }
+
+    @Override
+    public AlbumDTO fetchDataByID(Integer id) {
+        AlbumEntity e = repo.fetchDataByID(id);
+        AlbumDTO dto = new AlbumDTO();
+        dto.setAlbumId(e.getAlbumId());
+        dto.setRating(e.getRating());
+        dto.setTitle(e.getTitle());
+        dto.setPrice(e.getPrice());
+        dto.setGenre(e.getGenre());
+        dto.setArtist(e.getArtist());
+        dto.setReleaseDate(e.getReleaseDate());
+        return dto;
     }
 }

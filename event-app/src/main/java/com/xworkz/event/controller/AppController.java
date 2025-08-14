@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class AppController {
 
         if (service.validation(dto)){
             model.addAttribute("message","submitted");
+            return getAllEvents(model);
         }else {
             model.addAttribute("message","Invalid Details");
             model.addAttribute("dto",dto);
@@ -52,5 +54,21 @@ public class AppController {
         dto.forEach(System.out::println);
 
         return "listOfDto";
+    }
+
+
+    @GetMapping("returnToIndex")
+    public String  redirectToIndex(){
+        System.out.println("Calling Index");
+        return "index";
+    }
+    @GetMapping("view")
+    public String getPackageByID(@RequestParam("id") String id, Model model) {
+        System.out.println("getPackageByID :"+id);
+        EventDTO dto = service.fetchDataByID(Integer.valueOf(id));
+        System.out.printf("View Event : "+dto);
+        model.addAttribute("ref",dto);
+
+        return "view";
     }
 }

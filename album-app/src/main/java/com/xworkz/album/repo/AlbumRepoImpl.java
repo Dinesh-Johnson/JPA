@@ -29,12 +29,12 @@ public class AlbumRepoImpl implements AlbumRepo{
             et.rollback();
         }
 
-        if (emf.isOpen()){
-            emf.close();
-        }
-        if (em.isOpen()){
-            em.close();
-        }
+//        if (emf.isOpen()){
+//            emf.close();
+//        }
+//        if (em.isOpen()){
+//            em.close();
+//        }
 
         return true;
     }
@@ -59,9 +59,24 @@ public class AlbumRepoImpl implements AlbumRepo{
         return list;
     }
 
-    public  static void closeEntityMangerFactory(){
-        if (emf!=null && emf.isOpen()){
-            emf.close();
+    @Override
+    public AlbumEntity fetchDataByID(Integer id) {
+        EntityManager em = null;
+        AlbumEntity entity =null;
+        try{
+
+            em= emf.createEntityManager();
+            entity = (AlbumEntity) em.createNamedQuery("fetchDataByID").setParameter("id",id).getSingleResult();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
+        return entity;
     }
+
+//    public  static void closeEntityMangerFactory(){
+//        if (emf!=null && emf.isOpen()){
+//            emf.close();
+//        }
+//    }
 }

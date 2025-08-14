@@ -6,6 +6,7 @@ import lombok.Data;
 
 public class PetDTO {
 
+    private int id;
     private String name;
     private String type;
     private Integer age;

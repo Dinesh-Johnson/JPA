@@ -9,4 +9,6 @@ public interface EventRepo {
     boolean save(EventEntity entity);
 
     List<EventEntity> getAllEvents();
+
+    EventEntity fetchDataByID(Integer id);
 }

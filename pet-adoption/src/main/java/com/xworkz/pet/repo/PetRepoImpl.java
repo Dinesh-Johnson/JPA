@@ -27,12 +27,6 @@ public class PetRepoImpl implements PetRepo{
             et.rollback();
         }
 
-        if (emf.isOpen()){
-            emf.close();
-        }
-        if (em.isOpen()){
-            em.close();
-        }
 
         return true;
     }
@@ -57,9 +51,26 @@ public class PetRepoImpl implements PetRepo{
         return list;
     }
 
-    public  static void closeEntityMangerFactory(){
-        if (emf!=null && emf.isOpen()){
-            emf.close();
+    @Override
+    public PetEntity fetchDataByID(Integer id) {
+        EntityManager em = null;
+        PetEntity entity = null;
+
+        try{
+
+            em = emf.createEntityManager();
+            entity = em.createNamedQuery("fetchDataByID", PetEntity.class).setParameter("id",id).getSingleResult();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
+
+        return entity;
     }
+
+//    public  static void closeEntityMangerFactory(){
+//        if (emf!=null && emf.isOpen()){
+//            emf.close();
+//        }
+//    }
 }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Table(name = "pet_details")
 @Data
 @NamedQuery(name = "getAllPets",query = "select a from PetEntity a")
+@NamedQuery(name = "fetchDataByID",query = "select a from PetEntity a where a.id =:id")
 public class PetEntity {
 
     @Id

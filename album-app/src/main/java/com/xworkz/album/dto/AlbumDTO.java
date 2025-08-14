@@ -8,6 +8,9 @@ import java.time.LocalDate;
 @Data
 public class AlbumDTO {
 
+    private Integer albumId;
+
+
     private String title;
 
     private String artist;

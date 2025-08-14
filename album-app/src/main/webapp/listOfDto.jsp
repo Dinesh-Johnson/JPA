@@ -20,6 +20,7 @@
             <th>Release Date</th>
             <th>Price</th>
             <th>Rating</th>
+            <th>View</th>
         </tr>
         </thead>
         <tbody>
@@ -31,11 +32,13 @@
                 <td>${ref.releaseDate}</td>
                 <td>${ref.price}</td>
                 <td>${ref.rating}</td>
+                <td><a href="view?id=${ref.albumId}">view</a> </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
 </div>
+<a href="returnToIndex">Home</a>
 
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
