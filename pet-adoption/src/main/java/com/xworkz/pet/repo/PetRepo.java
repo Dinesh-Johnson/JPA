@@ -12,4 +12,12 @@ public interface PetRepo {
 
     PetEntity fetchDataByID(Integer id);
 
+    boolean deleteByID(Integer id);
+
+    boolean updateById(PetEntity entity);
+
+    PetEntity getByName(String name);
+
+
+
 }

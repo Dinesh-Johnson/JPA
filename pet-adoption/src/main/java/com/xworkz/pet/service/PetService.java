@@ -13,4 +13,10 @@ public interface PetService {
 
     PetDTO fetchDataByID(Integer id);
 
+    String getUpdateByID(PetDTO dto);
+
+    String deleteById(Integer id);
+
+    PetDTO searchByPetName(String name);
+
 }

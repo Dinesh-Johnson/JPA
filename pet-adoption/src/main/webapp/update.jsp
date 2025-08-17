@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Adoption Register Page</title>
+    <title>Pet Adoption Edit Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4 text-primary">🐾 Pet Adoption Registration 🐾</h2>
+    <h2 class="text-center mb-4 text-primary">🐾 Pet Adoption Registration  Edit🐾</h2>
 
     <!-- Display message if exists -->
     <c:if test="${not empty message}">
@@ -20,7 +20,7 @@
     <form action="register" method="post" class="p-4 bg-white rounded shadow-sm">
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" name="name" value="${dto.name}" class="form-control" required>
+            <input type="text" name="name" value="${dto.name}" class="form-control" >
         </div>
 
         <div class="mb-3">

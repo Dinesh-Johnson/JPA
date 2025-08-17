@@ -3,6 +3,7 @@ package com.xworkz.pet.controller;
 import com.xworkz.pet.dto.PetDTO;
 import com.xworkz.pet.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -68,6 +69,45 @@ public class AppController {
         PetDTO dto = service.fetchDataByID(Integer.valueOf(id));
         System.out.printf("View Torurism : "+dto);
         model.addAttribute("ref",dto);
+
+        return "view";
+    }
+    @GetMapping("edit")
+    public String viewByID(@RequestParam("id") String id, Model model) {
+        System.out.println("ID :" + id);
+        PetDTO dto = service.fetchDataByID(Integer.valueOf(id));
+        model.addAttribute("ref", dto);
+        return "update";
+    }
+
+    @PostMapping("update")
+    public String updateEdit(PetDTO dto, Model model) {
+        System.out.println("updateEdit.....");
+        String update = service.getUpdateByID(dto);
+        System.out.println("updated" + update);
+        List<PetDTO> list = service.getAllAlbum();
+        model.addAttribute("listOfDto", list);
+        list.forEach(System.out::println);
+        return "listOfDto";
+    }
+
+    @GetMapping("delete")
+    public String viewDeleteByID(@RequestParam("id") Integer id, Model model) {
+        System.out.println("ID :" + id);
+        String delete = service.deleteById(id);
+        System.out.println(delete);
+        List<PetDTO> list = service.getAllAlbum();
+        model.addAttribute("listOfDto", list);
+        list.forEach(System.out::println);
+        return "listOfDto";
+    }
+
+    @GetMapping("search")
+    public  String searchByText(@RequestParam("search")String text, Model model){
+        System.out.println("Search Text :"+text);
+        PetDTO search = service.searchByPetName(text);
+        System.out.println("search :"+search);
+        model.addAttribute("ref", search);
 
         return "view";
     }

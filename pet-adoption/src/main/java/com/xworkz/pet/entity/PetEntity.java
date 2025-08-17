@@ -9,10 +9,15 @@ import javax.persistence.*;
 @Data
 @NamedQuery(name = "getAllPets",query = "select a from PetEntity a")
 @NamedQuery(name = "fetchDataByID",query = "select a from PetEntity a where a.id =:id")
+@NamedQuery(name = "deleteById",query = "delete PetEntity a where a.id=:id")
+@NamedQuery(name = "getByPetName",query = "select a from PetEntity a where a.name=:name")
+@NamedQuery(name = "getUpdateByID", query = "update PetEntity a set a.name=:name, a.type=:type," +
+        "a.age=:age, a.breed=:breed,a.adoptionFee=:adoptionFee where a.id=:id")
 public class PetEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pet_id")
     private int id;
 
     @Column(name = "pet_name")

@@ -2,10 +2,10 @@ package com.xworkz.pet.repo;
 
 
 import com.xworkz.pet.entity.PetEntity;
+import org.hibernate.QueryException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -65,6 +65,71 @@ public class PetRepoImpl implements PetRepo{
             e.printStackTrace();
         }
 
+        return entity;
+    }
+
+    @Override
+    public boolean deleteByID(Integer id) {
+        EntityManager em = null;
+        boolean isDeleted= false;
+        try{
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            int deleted = em.createNamedQuery("deleteById").setParameter("id",id).executeUpdate();
+
+            System.out.println("DELETED"+deleted+" rows");
+            if (deleted>0){
+                em.getTransaction().commit();
+                isDeleted = true;
+            }
+        } catch (QueryException|NoResultException e) {
+            System.out.println(e.getMessage());
+            em.getTransaction().rollback();
+            isDeleted = false;
+        }
+        return isDeleted;
+    }
+
+    @Override
+    public boolean updateById(PetEntity entity) {
+        EntityManager em= null;
+        boolean isUpdated = false;
+        try{
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            int updated = em.createNamedQuery("getUpdateByID")
+                    .setParameter("name",entity.getName())
+                    .setParameter("type",entity.getType())
+                    .setParameter("age",entity.getAge())
+                    .setParameter("breed",entity.getBreed())
+                    .setParameter("adoptionFee",entity.getAdoptionFee())
+                    .setParameter("id",entity.getId())
+                    .executeUpdate();
+            System.out.println("UPDATES"+updated+" rows");
+            if (updated>0){
+                em.getTransaction().commit();
+                isUpdated = true;
+            }
+        } catch (QueryException|NoResultException e) {
+            System.out.println(e.getMessage());
+            em.getTransaction().rollback();
+            isUpdated = false;
+        }
+        return isUpdated;
+    }
+
+    @Override
+    public PetEntity getByName(String name) {
+        EntityManager em = null;
+        PetEntity entity = null;
+        try{
+            em = emf.createEntityManager();
+            entity = (PetEntity) em.createNamedQuery("getByPetName").setParameter("name",name).getSingleResult();
+
+            System.out.println(entity);
+        } catch (QueryException|NoResultException e) {
+            System.out.println(e.getMessage());
+        }
         return entity;
     }
 

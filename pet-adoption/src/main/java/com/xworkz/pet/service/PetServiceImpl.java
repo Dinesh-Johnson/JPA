@@ -4,9 +4,11 @@ package com.xworkz.pet.service;
 import com.xworkz.pet.dto.PetDTO;
 import com.xworkz.pet.entity.PetEntity;
 import com.xworkz.pet.repo.PetRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -91,6 +93,37 @@ public class PetServiceImpl implements PetService {
         dto.setBreed(e.getBreed());
         dto.setAge(e.getAge());
         dto.setAdoptionFee(e.getAdoptionFee());
+        return dto;
+    }
+
+    @Override
+    public String getUpdateByID(PetDTO dto) {
+        PetEntity entity = new PetEntity();
+        BeanUtils.copyProperties(dto, entity);
+        boolean updated = repo.updateById(entity);
+        if (updated) {
+            return "UPDATED";
+        }
+        return "NOT UPDATED";
+    }
+
+    @Override
+    public String deleteById(Integer id) {
+        PetEntity entity = new PetEntity();
+        boolean deleted = repo.deleteByID(id);
+        if (deleted) {
+            return "DELETED";
+        }
+        return "NOT DELETED";
+    }
+
+    @Override
+    public PetDTO searchByPetName(String name) {
+        PetEntity entity = repo.getByName(name);
+        PetDTO dto = new PetDTO();
+        System.out.println("SERVICE searchByPetName  e..."+entity);
+        BeanUtils.copyProperties(entity,dto);
+
         return dto;
     }
 }
