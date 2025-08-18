@@ -3,6 +3,7 @@ package com.xworkz.event.service;
 import com.xworkz.event.dto.EventDTO;
 import com.xworkz.event.entity.EventEntity;
 import com.xworkz.event.repo.EventRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -92,6 +93,37 @@ public class EventServiceImpl implements EventService {
         dto.setName(entity.getName());
         dto.setOrganizer(entity.getOrganizer());
         dto.setTicketPrice(entity.getTicketPrice());
+        return dto;
+    }
+
+    @Override
+    public String getUpdateByID(EventDTO dto) {
+        EventEntity entity = new EventEntity();
+        BeanUtils.copyProperties(dto, entity);
+        boolean updated = repo.updateById(entity);
+        if (updated) {
+            return "UPDATED";
+        }
+        return "NOT UPDATED";
+    }
+
+    @Override
+    public String deleteById(Integer id) {
+        EventEntity entity = new EventEntity();
+        boolean deleted = repo.deleteByID(id);
+        if (deleted) {
+            return "DELETED";
+        }
+        return "NOT DELETED";
+    }
+
+    @Override
+    public EventDTO searchByPetName(String name) {
+        EventEntity entity = repo.getByName(name);
+        EventDTO dto = new EventDTO();
+        System.out.println("SERVICE searchByPetName  e..."+entity);
+        BeanUtils.copyProperties(entity,dto);
+
         return dto;
     }
 }

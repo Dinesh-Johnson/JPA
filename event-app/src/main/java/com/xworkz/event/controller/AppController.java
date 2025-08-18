@@ -71,4 +71,44 @@ public class AppController {
 
         return "view";
     }
+
+    @GetMapping("edit")
+    public String viewByID(@RequestParam("id") String id, Model model) {
+        System.out.println("ID :" + id);
+        EventDTO dto = service.fetchDataByID(Integer.valueOf(id));
+        model.addAttribute("ref", dto);
+        return "update";
+    }
+
+    @PostMapping("update")
+    public String updateEdit(EventDTO dto, Model model) {
+        System.out.println("updateEdit.....");
+        String update = service.getUpdateByID(dto);
+        System.out.println("updated" + update);
+        List<EventDTO> list = service.getAllEvents();
+        model.addAttribute("listOfDto", list);
+        list.forEach(System.out::println);
+        return "listOfDto";
+    }
+
+    @GetMapping("delete")
+    public String viewDeleteByID(@RequestParam("id") Integer id, Model model) {
+        System.out.println("ID :" + id);
+        String delete = service.deleteById(id);
+        System.out.println(delete);
+        List<EventDTO> list = service.getAllEvents();
+        model.addAttribute("listOfDto", list);
+        list.forEach(System.out::println);
+        return "listOfDto";
+    }
+
+    @GetMapping("search")
+    public  String searchByText(@RequestParam("search")String text, Model model){
+        System.out.println("Search Text :"+text);
+        EventDTO search = service.searchByPetName(text);
+        System.out.println("search :"+search);
+        model.addAttribute("ref", search);
+
+        return "view";
+    }
 }

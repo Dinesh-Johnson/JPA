@@ -1,0 +1,80 @@
+package com.xworkz.registraition.repository;
+
+import com.xworkz.registraition.entity.UserEntity;
+import com.xworkz.registraition.utill.DBConnection;
+import org.hibernate.QueryException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.*;
+
+@Repository
+public class UserRepoImpl implements UserRepo{
+
+    @Autowired
+    private DBConnection emf;
+
+    @Override
+    public boolean save(UserEntity entity) {
+        EntityManager em = null;
+        boolean isSaved=false;
+        try{
+            em= emf.entityManager();
+            em.getTransaction().begin();
+            em.persist(entity);
+
+            if (entity!=null){
+                em.getTransaction().commit();
+                System.out.println("DATA SAVED");
+                return isSaved= true;
+            }
+        }catch (QueryException| NoResultException e){
+            System.out.println(e.getMessage());
+            isSaved = false;
+        }
+        return isSaved;
+    }
+
+    @Override
+    public UserEntity acceptLogin(String email) {
+        System.out.println("REPO ACCEPT LOGIn");
+        EntityManager em= null;
+        UserEntity entity=null;
+        try{
+            em= emf.entityManager();
+            entity= (UserEntity) em.createNamedQuery("acceptLogin").setParameter("email",email).getSingleResult();
+            System.out.println(entity);
+        }catch (QueryException | NoResultException e){
+            System.out.println(e.getMessage());
+        }
+        return entity;
+    }
+
+    @Override
+    public String getByMail(String mail) {
+        System.out.println("GET MAIL REPO");
+        EntityManager em = null;
+        String entity=null;
+        try {
+            em = emf.entityManager();
+            entity = (String) em.createNamedQuery("getByEmail").setParameter("email",mail).getSingleResult();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return entity;
+    }
+
+    @Override
+    public Long getByMobile(Long mobile) {
+        System.out.println("GET Mobile REPO");
+        EntityManager em = null;
+        Long entity = 0L;
+        try {
+            em = emf.entityManager();
+            entity = (Long) em.createNamedQuery("getByMobile").setParameter("mobile", mobile).getSingleResult();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return entity;
+    }
+}

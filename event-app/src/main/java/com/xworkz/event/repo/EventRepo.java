@@ -11,4 +11,10 @@ public interface EventRepo {
     List<EventEntity> getAllEvents();
 
     EventEntity fetchDataByID(Integer id);
+
+    boolean deleteByID(Integer id);
+
+    boolean updateById(EventEntity entity);
+
+    EventEntity getByName(String name);
 }

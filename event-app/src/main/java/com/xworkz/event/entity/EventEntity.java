@@ -9,6 +9,10 @@ import javax.persistence.*;
 @Data
 @NamedQuery(name = "getAllEvents",query = "select a from EventEntity a")
 @NamedQuery(name = "fetchDataByID",query = "select a from EventEntity a where a.id =:id")
+@NamedQuery(name = "deleteById",query = "delete EventEntity a where a.id=:id")
+@NamedQuery(name = "getByEventName",query = "select a from EventEntity a where a.name=:name")
+@NamedQuery(name = "getUpdateByID", query = "update EventEntity a set a.name=:name, a.location=:location," +
+        "a.date=:date, a.organizer=:organizer,a.ticketPrice=:ticketPrice where a.id=:id")
 public class EventEntity {
 
     @Id

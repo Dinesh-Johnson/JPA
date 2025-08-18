@@ -13,7 +13,7 @@
 
 <h2>Enter Event Details</h2>
 
-<form action="register" method="post">
+<form action="update" method="post">
     <p>${message}</p>
     <label>Event Name:</label>
     <input type="text" name="packageName" value="${dto.name}" required><br><br>

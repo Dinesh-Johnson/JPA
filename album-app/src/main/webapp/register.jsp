@@ -30,7 +30,10 @@
     <label>Rating</label>
     <input type="number" step="0.1" min="0" max="5" name="rating" value="${dto.rating}" required><br><br>
 
-    <input type="submit" value="Register">
+    <input type="submit" value="Register"><br>
+
+    <a href="returnToIndex">Home</a>
+
 </form>
 </body>
 </html>

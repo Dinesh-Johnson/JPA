@@ -13,4 +13,10 @@ public interface EventService {
 
     EventDTO fetchDataByID(Integer id);
 
+    String getUpdateByID(EventDTO dto);
+
+    String deleteById(Integer id);
+
+    EventDTO searchByPetName(String name);
+
 }

@@ -64,7 +64,6 @@ public class AppController {
         dtos.forEach(System.out::println);
         return "listPage";
     }
-
     @GetMapping("returnToIndex")
     public String reDirectToIndex(){
         System.out.println("Index....");

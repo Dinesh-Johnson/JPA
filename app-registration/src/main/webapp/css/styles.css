@@ -1,0 +1,65 @@
+/* styles.css */
+
+.logo-badge {
+    background: #fff; /* or #000 for a black badge */
+    border-radius: 50%; /* or use 8px for a rectangle with rounded corners */
+    padding: 8px;
+    display: inline-block;
+}
+
+.navbar-orange {
+    background-color: #FF6600 !important;
+}
+
+.navbar-orange .navbar-brand,
+.navbar-orange .nav-link,
+.navbar-orange .navbar-toggler,
+.navbar-orange .navbar-toggler span {
+    color: #000 !important;
+}
+
+.navbar-orange .nav-link.active,
+.navbar-orange .nav-link:focus,
+.navbar-orange .nav-link:hover {
+    color: #222 !important;
+    font-weight: bold;
+}
+
+/* Fixed social icons at bottom right */
+.social-icons {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 1050;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons i {
+    font-size: 32px;
+    color: #fff;
+}
+/* styles.css */
+
+/* Default (light) mode */
+body {
+  background-color: #fff;
+  color: #000;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #222;
+  color: #f1f1f1;
+}
+
+  background-color: #fff;
+  color: #000;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #222;
+  color: #eee;
+}
