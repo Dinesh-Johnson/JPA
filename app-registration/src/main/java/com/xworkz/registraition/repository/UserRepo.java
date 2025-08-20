@@ -11,4 +11,8 @@ public interface UserRepo {
     String getByMail(String mail);
 
     Long getByMobile(Long mobile);
+
+    String getPassword(String mail);
+
+    boolean resetPassword(String mail,String password);
 }

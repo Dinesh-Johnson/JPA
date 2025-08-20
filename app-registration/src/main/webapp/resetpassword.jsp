@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
@@ -38,30 +37,23 @@
         </div>
     </div>
 </nav>
-
-<div class="container my-5" style="max-width: 500px;">
-    <div class="card shadow">
-        <div class="card-header bg-warning text-dark">
-            <h4 class="card-title mb-0">User Details</h4>
-        </div>
-        <div class="card-body">
-            <p><strong>Name:</strong> ${dto.name}</p>
-            <p><strong>Email:</strong> ${dto.email}</p>
-            <p><strong>Phone:</strong> ${dto.mobile}</p>
-            <p><strong>Date of Birth:</strong> ${dto.dob}</p>
-            <p><strong>Gender:</strong> ${dto.gender}</p>
-            <p><strong>State:</strong> ${dto.state}</p>
-            <p><strong>Address:</strong> ${dto.address}</p>
-        </div>
-        <div class="card-footer text-center">
-            <a href="editProfile" class="btn btn-primary">Edit Profile</a>
-            <a href="login" class="btn btn-secondary ms-2">Back to Log IN</a>
-        </div>
+<form action="setPassword" method="post" id="form">
+    <p style="color:red">${message}</p>
+    <div class="mb-3">
+        <label for="loginEmail" class="form-label">Email address</label>
+        <input type="hidden" id="loginEmail" name="email" value="${email}" >
     </div>
+<div class="mb-3">
+    <label for="regPassword" class="form-label">Password</label>
+    <input type="password" class="form-control" id="regPassword" name="password" value="${dto.password}" onblur="checkpassword()" required>
+    <span id="errorpassword" style="color: red;"></span>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<div class="mb-3">
+    <label for="regConfirmPassword" class="form-label">Confirm Password</label>
+    <input type="password" class="form-control" id="regConfirmPassword" name="confirmPassword" value="${dto.confirmPassword}" onblur="checkpassword()" required>
+    <span id="errorConfirmpassword" style="color: red;"></span>
+</div>
+    <button type="submit" class="btn btn-success w-100">Register</button>
 <footer class="mt-auto bg-dark text-white text-center py-3 position-relative">
     X-Workz © 2025
 
@@ -77,6 +69,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/darkModeToggle.js" defer></script>
-
+<script src="js/validation.js" defer></script>
 </body>
 </html>

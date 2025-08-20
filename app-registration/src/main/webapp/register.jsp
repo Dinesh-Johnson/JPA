@@ -1,12 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Orange Header & Sticky Footer</title>
+    <title>X-WORKZ (ODC)</title>
     <!-- Bootstrap 5 CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +42,8 @@
 <!-- Main content -->
 <div class="container my-5" style="max-width:500px;">
     <h2 class="mb-4 text-center">Registration</h2>
-    <form action="register" method="post">
+    <form action="register" method="post" id="form">
+        <p style="color:red">${message}</p>
         <div class="mb-3">
             <label for="regName" class="form-label">Name</label>
             <input type="text" class="form-control" id="regName" name="name" value="${dto.name}" onblur="checkname()" required>
@@ -51,12 +51,12 @@
         </div>
         <div class="mb-3">
             <label for="regEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="regEmail" name="email" value="${dto.email}" onblur="checkmail(); loginemail(); " required>
+            <input type="email" class="form-control" id="regEmail" name="email" value="${dto.email}" onblur="loginemail();" oninput="checkmail()" required>
             <span id="errormail" style="color: red;"></span>
         </div>
         <div class="mb-3">
             <label for="regPhone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="regPhone" name="mobile" pattern="[0-9]{10}" maxlength="10" value="${dto.mobile}" onblur="checkmobile(); loginmobile();" required>
+            <input type="tel" class="form-control" id="regPhone" name="mobile" pattern="[0-9]{10}" maxlength="10" value="${dto.mobile}" onblur="oginmobile()" oninput="checkmobile()" required>
             <span id="errormobile" style="color: red;"></span>
         </div>
         <div class="mb-3">
@@ -102,16 +102,7 @@
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="address" value="${dto.address}" onblur="checkaddress()" required></textarea>
             <span id="erroraddress" style="color: red;"></span>
         </div>
-        <div class="mb-3">
-            <label for="regPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="regPassword" name="password" value="${dto.password}" onblur="checkpassword()" required>
-            <span id="errorpassword" style="color: red;"></span>
-        </div>
-        <div class="mb-3">
-            <label for="regConfirmPassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="regConfirmPassword" name="confirmPassword" value="${dto.confirmPassword}" onblur="checkpassword()" required>
-            <span id="errorConfirmpassword" style="color: red;"></span>
-        </div>
+
         <button type="submit" class="btn btn-success w-100">Register</button>
     </form>
     <div class="mt-3 text-center">
@@ -119,19 +110,17 @@
     </div>
 </div>
 
-<!-- Sticky Footer (always at bottom) -->
 <footer class="mt-auto bg-dark text-white text-center py-3 position-relative">
     X-Workz © 2025
+
+    <!-- Social Icons bottom right -->
+    <div class="social-icons position-absolute" style="right: 20px; bottom: 10px;">
+        <a href="#" aria-label="Facebook"><i class="bi bi-facebook" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#" aria-label="Twitter"><i class="bi bi-twitter" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#" aria-label="Instagram"><i class="bi bi-instagram" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+    </div>
 </footer>
-
-<!-- Social Icons bottom right -->
-<div class="social-icons">
-    <a href="#" aria-label="Facebook"><i class="bi bi-facebook" style="font-size:32px; color:#fff;"></i></a>
-    <a href="#" aria-label="Twitter"><i class="bi bi-twitter" style="font-size:32px; color:#fff;"></i></a>
-    <a href="#" aria-label="Instagram"><i class="bi bi-instagram" style="font-size:32px; color:#fff;"></i></a>
-    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin" style="font-size:32px; color:#fff;"></i></a>
-</div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/darkModeToggle.js" defer></script>

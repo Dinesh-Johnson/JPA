@@ -4,13 +4,16 @@ package com.xworkz.registraition.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @Table(name = "user_information")
-@NamedQuery(name = "acceptLogin",query = "select a from UserEntity a where a.email=:email ")
-@NamedQuery(name = "getByEmail",query = "select a.email from UserEntity a where a.email = :email")
-@NamedQuery(name = "getByMobile",query = "select a.mobile from UserEntity a where a.mobile = :mobile")
+@NamedQuery(name = "acceptLogin",query = "select a from UserEntity a where a.email=:email and a.isPresent=true")
+@NamedQuery(name = "getByEmail",query = "select a.email from UserEntity a where a.email = :email and a.isPresent=true")
+@NamedQuery(name = "getByMobile",query = "select a.mobile from UserEntity a where a.mobile = :mobile and a.isPresent=true")
+@NamedQuery(name = "getPassword",query = "select a.password from UserEntity a where a.email=:email and a.isPresent=true")
+@NamedQuery(name = "updatePassword",query = "update UserEntity a set a.password=:password where a.email=:email and a.isPresent=true")
 public class UserEntity {
 
     @Id
@@ -22,7 +25,7 @@ public class UserEntity {
     private String name;
 
 
-    @Column(name = "user_email")
+    @Column(name = "user_email",unique = true)
     private String email;
 
     @Column(name = "user_mobile")
@@ -43,8 +46,13 @@ public class UserEntity {
     @Column(name = "user_password")
     private String password;
 
-    @Column(name = "user_confirmPassword")
-    private String confirmPassword;
+    @Column(name = "is_present", nullable = false)
+    private boolean isPresent = true;
 
-    private boolean isPresent;
+    @Column(name = "login_count")
+    private Integer loginCount;
+
+    @Column(name = "expiry_time")
+    private LocalDateTime expiryTime;
+
 }

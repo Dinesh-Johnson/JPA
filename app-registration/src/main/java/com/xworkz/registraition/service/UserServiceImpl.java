@@ -3,6 +3,7 @@ package com.xworkz.registraition.service;
 import com.xworkz.registraition.dto.UserDTO;
 import com.xworkz.registraition.entity.UserEntity;
 import com.xworkz.registraition.repository.UserRepo;
+import com.xworkz.registraition.utill.OTPUtill;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -13,17 +14,34 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService{
 
     @Autowired
+    private EmailSender sender;
+
+    @Autowired
     private UserRepo repo;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+
+
     @Override
     public boolean save(UserDTO dto) {
+        System.out.println("save method: ");
         UserEntity entity = new UserEntity();
         BeanUtils.copyProperties(dto,entity);
-        entity.setPassword(encoder.encode(dto.getPassword()));
-        return repo.save(entity);
+        String otp = OTPUtill.generateNumericOtp(6);
+        entity.setPassword(encoder.encode(otp));
+        entity.setExpiryTime(null);
+        entity.setLoginCount(-1);
+        entity.setPresent(true);
+        if (repo.save(entity)){
+            if (sender.mailSend(dto.getEmail(), otp)){
+
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     @Override
@@ -31,7 +49,8 @@ public class UserServiceImpl implements UserService{
 
         UserEntity entity = repo.acceptLogin(email);
 
-        if (entity == null) {
+        if (entity.getPassword() == null || entity.getPassword().isEmpty()) {
+            System.out.println("Password is missing for email: " + email);
             return null;
         }
         if (!encoder.matches(password, entity.getPassword())) {
@@ -53,5 +72,29 @@ public class UserServiceImpl implements UserService{
     public Long getByMobile(Long mobile) {
         System.out.println("GET Mobile SERVICE");
         return repo.getByMobile(mobile);
+    }
+
+    @Override
+    public boolean acceptLoginByOtp(String email, String userOtp) {
+        System.out.println("Accept by OTP");
+        String encodedOtp = repo.getPassword(email); // stored in DB (BCrypt hash)
+        System.out.println("Pass for otp "+ encodedOtp);
+        if (encodedOtp == null || encodedOtp.isEmpty()) {
+            System.out.println("No OTP found for email: " + email);
+            return false;
+        }
+        return encoder.matches(userOtp, encodedOtp);
+    }
+
+    @Override
+    public boolean resetPassword(String email, String password, String confirmPassword) {
+        System.out.println("Reset Password Service......");
+        if (password.equals(confirmPassword)) {
+            String encoded = encoder.encode(password);
+            if (repo.resetPassword(email, encoded)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

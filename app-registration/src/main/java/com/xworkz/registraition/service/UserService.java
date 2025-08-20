@@ -11,4 +11,8 @@ public interface UserService {
     String getByEmail(String mail);
 
     Long getByMobile(Long mobile);
+
+    boolean acceptLoginByOtp(String email,String userOtp);
+
+    boolean resetPassword(String email,String password,String confirmPassword);
 }

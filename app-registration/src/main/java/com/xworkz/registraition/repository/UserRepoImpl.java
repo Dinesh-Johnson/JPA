@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.*;
 
 @Repository
+
 public class UserRepoImpl implements UserRepo{
 
     @Autowired
@@ -16,40 +17,48 @@ public class UserRepoImpl implements UserRepo{
 
     @Override
     public boolean save(UserEntity entity) {
+        System.out.println("repo data: " + entity);
         EntityManager em = null;
-        boolean isSaved=false;
-        try{
-            em= emf.entityManager();
+        boolean isSaved = false;
+        try {
+            em = emf.entityManager();
             em.getTransaction().begin();
             em.persist(entity);
 
-            if (entity!=null){
+            if (entity != null) {
                 em.getTransaction().commit();
                 System.out.println("DATA SAVED");
-                return isSaved= true;
+                return isSaved = true;
             }
-        }catch (QueryException| NoResultException e){
+        } catch (QueryException | NoResultException e) {
             System.out.println(e.getMessage());
             isSaved = false;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+            return isSaved;
         }
-        return isSaved;
     }
 
     @Override
     public UserEntity acceptLogin(String email) {
         System.out.println("REPO ACCEPT LOGIn");
-        EntityManager em= null;
-        UserEntity entity=null;
-        try{
-            em= emf.entityManager();
-            entity= (UserEntity) em.createNamedQuery("acceptLogin").setParameter("email",email).getSingleResult();
+        EntityManager em = null;
+        UserEntity entity = null;
+        try {
+            em = emf.entityManager();
+            entity = (UserEntity) em.createNamedQuery("acceptLogin").setParameter("email", email).getSingleResult();
             System.out.println(entity);
-        }catch (QueryException | NoResultException e){
+        } catch (QueryException | NoResultException e) {
             System.out.println(e.getMessage());
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+            return entity;
         }
-        return entity;
     }
-
     @Override
     public String getByMail(String mail) {
         System.out.println("GET MAIL REPO");
@@ -58,8 +67,14 @@ public class UserRepoImpl implements UserRepo{
         try {
             em = emf.entityManager();
             entity = (String) em.createNamedQuery("getByEmail").setParameter("email",mail).getSingleResult();
-        } catch (PersistenceException e) {
-            e.printStackTrace();
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            if(em!=null&& em.isOpen())
+            {
+                em.close();
+            }
         }
         return entity;
     }
@@ -73,8 +88,62 @@ public class UserRepoImpl implements UserRepo{
             em = emf.entityManager();
             entity = (Long) em.createNamedQuery("getByMobile").setParameter("mobile", mobile).getSingleResult();
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            if(em!=null&& em.isOpen())
+            {
+                em.close();
+            }
         }
         return entity;
+    }
+
+    @Override
+    public String getPassword(String mail) {
+        System.out.println("GET Password OTP REPO");
+        EntityManager em = null;
+        String entity = null;
+        try {
+            em = emf.entityManager();
+            entity = (String) em.createNamedQuery("getPassword").setParameter("email", mail).getSingleResult();
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            if(em!=null&& em.isOpen())
+            {
+                em.close();
+            }
+        }
+        return entity;
+    }
+
+    @Override
+    public boolean resetPassword(String mail, String password) {
+        System.out.println("GET MAIL REPO");
+        EntityManager em = null;
+        int rows=0;
+        try {
+            em = emf.entityManager();
+            em.getTransaction().begin();
+            rows = em.createNamedQuery("updatePassword").setParameter("email",mail).setParameter("password",password).executeUpdate();
+            System.out.println(rows+" are Updated");
+
+            if (rows>0){
+                em.getTransaction().commit();
+                return true;
+            }
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+            em.getTransaction().rollback();
+            return false;
+        }finally {
+            if(em!=null&& em.isOpen())
+            {
+                em.close();
+            }
+        }
+        return false;
     }
 }

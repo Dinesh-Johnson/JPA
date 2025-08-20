@@ -31,10 +31,10 @@ public class UserDTO {
 
     @NotBlank
     private String address;
+//
+//    @NotBlank
+//    private String password;
 
-    @NotBlank
-    private String password;
-
-    @NotBlank
-    private String confirmPassword;
+//    @NotBlank
+//    private String confirmPassword;
 }

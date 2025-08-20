@@ -27,6 +27,7 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" ></span>
         </button>
+        <!-- Button to toggle dark mode -->
         <button id="darkModeToggle" class="btn btn-outline-dark ms-3" type="button">
             <i class="bi bi-moon"></i> Dark Mode
         </button>
@@ -38,30 +39,24 @@
         </div>
     </div>
 </nav>
+ <h2 class="mb-4 text-center">Login</h2>
+<form action="loginwithOTP" method="post">
+    <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="text" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+        <label for="otp" class="form-label">OTP</label>
+        <input type="text" class="form-control" id="otp" name="otp" required>
+    </div>
 
-<div class="container my-5" style="max-width: 500px;">
-    <div class="card shadow">
-        <div class="card-header bg-warning text-dark">
-            <h4 class="card-title mb-0">User Details</h4>
-        </div>
-        <div class="card-body">
-            <p><strong>Name:</strong> ${dto.name}</p>
-            <p><strong>Email:</strong> ${dto.email}</p>
-            <p><strong>Phone:</strong> ${dto.mobile}</p>
-            <p><strong>Date of Birth:</strong> ${dto.dob}</p>
-            <p><strong>Gender:</strong> ${dto.gender}</p>
-            <p><strong>State:</strong> ${dto.state}</p>
-            <p><strong>Address:</strong> ${dto.address}</p>
-        </div>
-        <div class="card-footer text-center">
-            <a href="editProfile" class="btn btn-primary">Edit Profile</a>
-            <a href="login" class="btn btn-secondary ms-2">Back to Log IN</a>
-        </div>
+    <button type="submit">Login</button>
+</form>
+    <div class="mt-3 text-center">
+        <a href="register">Don't have an account? Register</a>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<p style="colour:red">${message}</p>
 <footer class="mt-auto bg-dark text-white text-center py-3 position-relative">
     X-Workz © 2025
 

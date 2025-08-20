@@ -37,6 +37,7 @@ public class AppController {
         return "login";
     }
 
+
     @PostMapping("register")
     public String save(@Valid UserDTO dto, BindingResult result, Model model){
 
@@ -52,14 +53,39 @@ public class AppController {
         }
         if (service.save(dto)){
             model.addAttribute("message","SUBMITTED");
+            return "loginwithOtp";
         }else {
             model.addAttribute("message", "Not Submitted");
             model.addAttribute("dto", dto);
-
+            return "register";
         }
-        return "register";
     }
 
+    @PostMapping("/loginwithOTP")
+    public String logInWithOTP(@RequestParam String email,@RequestParam String otp,Model model) {
+        System.out.println("Email: " + email + " -- OTP: " + otp);
+        if (service.acceptLoginByOtp(email, otp)) {
+            model.addAttribute("email", email);
+            return "resetpassword";
+        }
+        model.addAttribute("message", "OTP Not Matched");
+        model.addAttribute("email", email);
+        return "login";
+    }
+
+    @PostMapping("setPassword")
+    public String restPassword(@RequestParam("email")String email,@RequestParam("password")String password,@RequestParam("confirmPassword")String confirmPassword,Model model){
+        System.out.println("Rest Password");
+        System.out.println("Email :" + email + "--- Password :" + password);
+        if (service.resetPassword(email, password, confirmPassword)) {
+            model.addAttribute("message", "Password Set Successfully. Please login.");
+            return "login";
+        } else {
+            model.addAttribute("message", "Password Mismatch");
+            model.addAttribute("email", email);
+            return "resetpassword";
+        }
+    }
     @PostMapping("login")
     public String logIn(@RequestParam String email,@RequestParam String password,Model model){
         System.out.println("Controller Log In.....");
