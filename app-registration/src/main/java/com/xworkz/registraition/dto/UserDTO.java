@@ -31,10 +31,6 @@ public class UserDTO {
 
     @NotBlank
     private String address;
-//
-//    @NotBlank
-//    private String password;
 
-//    @NotBlank
-//    private String confirmPassword;
+    private Integer loginCount;
 }

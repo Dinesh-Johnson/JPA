@@ -38,19 +38,33 @@
     </div>
 </nav>
 
-<!-- Main content -->
 <main class="flex-fill container my-4">
     <h1>Welcome To X-Workz!</h1>
-    <p>We are professionals from IT industry, having vast experience in development and training of JAVA and various UI related technologies.</p>
-    <img src="https://raw.githubusercontent.com/xworkzodc/Gallery/master/images/56.jpeg" alt="about" class="img-fluid" width="50%">
-    <h3>Enterprise Application Expertise Team</h3>
-    <p>
-        We have been training and placing students over a decade now in various training institutes, we are the pioneers who introduced different training models which not only focus on theory but on practical implementations.
-    </p>
-    <p>
-    We have been training and placing students over a decade now in various training institutes, we are the pioneers who introduced different training models which not only focus on theory but on practical implementations.
-</p>
+    <div class="row align-items-center">
+
+        <!-- Left Column: Image -->
+        <div class="col-md-6 text-center">
+            <img src="https://raw.githubusercontent.com/xworkzodc/Gallery/master/images/56.jpeg"
+                 alt="about"
+                 class="img-fluid rounded shadow">
+        </div>
+
+        <!-- Right Column: Text -->
+        <div class="col-md-6">
+            <p>
+                We are professionals from IT industry, having vast experience in development and training of JAVA and various UI related technologies.
+            </p>
+            <h3>Enterprise Application Expertise Team</h3>
+            <p>
+                We have been training and placing students over a decade now in various training institutes, we are the pioneers who introduced different training models which not only focus on theory but on practical implementations.
+            </p>
+            <p>
+                We have been training and placing students over a decade now in various training institutes, we are the pioneers who introduced different training models which not only focus on theory but on practical implementations.
+            </p>
+        </div>
+    </div>
 </main>
+
 <footer class="mt-auto bg-dark text-white text-center py-3 position-relative">
     X-Workz © 2025
 

@@ -15,4 +15,6 @@ public interface UserRepo {
     String getPassword(String mail);
 
     boolean resetPassword(String mail,String password);
+
+    void lockTimeUpdate(UserEntity entity);
 }

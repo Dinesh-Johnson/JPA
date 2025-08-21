@@ -3,6 +3,8 @@ package com.xworkz.registraition.repository;
 import com.xworkz.registraition.entity.UserEntity;
 import com.xworkz.registraition.utill.DBConnection;
 import org.hibernate.QueryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,10 @@ public class UserRepoImpl implements UserRepo{
 
     @Autowired
     private DBConnection emf;
+
+    private static final Logger log = LoggerFactory.getLogger(UserRepoImpl.class);
+
+
 
     @Override
     public boolean save(UserEntity entity) {
@@ -50,6 +56,7 @@ public class UserRepoImpl implements UserRepo{
             em = emf.entityManager();
             entity = (UserEntity) em.createNamedQuery("acceptLogin").setParameter("email", email).getSingleResult();
             System.out.println(entity);
+            log.info(String.valueOf(entity));
         } catch (QueryException | NoResultException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -145,5 +152,27 @@ public class UserRepoImpl implements UserRepo{
             }
         }
         return false;
+    }
+
+    @Override
+    public void lockTimeUpdate(UserEntity entity) {
+        System.out.println("repo Merge Lock Time: " + entity);
+        EntityManager em = null;
+        try {
+            em = emf.entityManager();
+            em.getTransaction().begin();
+            em.merge(entity);
+
+            if (entity != null) {
+                em.getTransaction().commit();
+                System.out.println("DATA Merged");
+            }
+        } catch (QueryException | NoResultException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
     }
 }

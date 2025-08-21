@@ -90,10 +90,21 @@ public class AppController {
     public String logIn(@RequestParam String email,@RequestParam String password,Model model){
         System.out.println("Controller Log In.....");
         System.out.println("Email :" + email + "--- Password :" + password);
-        UserDTO dto = service.acceptLogin(email, password);
+        UserDTO dto =null;
+        try{
+            dto = service.acceptLogin(email, password);
+        }catch (RuntimeException e){
+            model.addAttribute("message",e.getMessage());
+            model.addAttribute("email",email);
+            return "login";
+        }
         if (dto == null) {
             model.addAttribute("message", "Invalid email or password");
             return "login";
+        }
+        if (dto.getLoginCount()==-1){
+            model.addAttribute("email",email);
+            return "resetpassword";
         }
         model.addAttribute("dto", dto);
         return "view";

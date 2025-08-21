@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "getByEmail",query = "select a.email from UserEntity a where a.email = :email and a.isPresent=true")
 @NamedQuery(name = "getByMobile",query = "select a.mobile from UserEntity a where a.mobile = :mobile and a.isPresent=true")
 @NamedQuery(name = "getPassword",query = "select a.password from UserEntity a where a.email=:email and a.isPresent=true")
-@NamedQuery(name = "updatePassword",query = "update UserEntity a set a.password=:password where a.email=:email and a.isPresent=true")
+@NamedQuery(name = "updatePassword",query = "update UserEntity a set a.password=:password, a.loginCount=0 where a.email=:email and a.isPresent=true")
 public class UserEntity {
 
     @Id

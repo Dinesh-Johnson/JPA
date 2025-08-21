@@ -46,19 +46,20 @@
     <form action="login" method="post">
         <div class="mb-3">
             <label for="loginEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="loginEmail" name="email" value="${dto.email}" onblur="checkmail(); loginemail();" required>
+            <input type="email" class="form-control" id="loginEmail" name="email" value="${email}" onblur="checkmail(); loginemail();" required>
         </div>
         <div class="mb-3">
             <label for="loginPassword" class="form-label">Password</label>
             <input type="password" class="form-control" id="loginPassword" name="password" value="${dto.password}" onblur="checkpassword()"  required>
         </div>
+        <p style="color:red">${message}</p>
         <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>
     <div class="mt-3 text-center">
         <a href="register">Don't have an account? Register</a>
     </div>
 </div>
-<p style="colour-red">${message}</p>
+
 <footer class="mt-auto bg-dark text-white text-center py-3 position-relative">
     X-Workz © 2025
 
