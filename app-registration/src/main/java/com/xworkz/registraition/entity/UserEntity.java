@@ -13,7 +13,12 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "getByEmail",query = "select a.email from UserEntity a where a.email = :email and a.isPresent=true")
 @NamedQuery(name = "getByMobile",query = "select a.mobile from UserEntity a where a.mobile = :mobile and a.isPresent=true")
 @NamedQuery(name = "getPassword",query = "select a.password from UserEntity a where a.email=:email and a.isPresent=true")
-@NamedQuery(name = "updatePassword",query = "update UserEntity a set a.password=:password, a.loginCount=0 where a.email=:email and a.isPresent=true")
+@NamedQuery(name = "updateById",query = "update UserEntity a set a.name=:name,a.mobile=:mobile,a.dob=:dob," +
+        "a.state=:state,a.address=:address,a.filePath=:filePath where a.id=:id and a.isPresent=true")
+@NamedQuery(name = "setOtpByMail",query = "update UserEntity a set a.password=:otp where a.email=:email and a.isPresent=true")
+@NamedQuery(name = "updatePassword",query = "update UserEntity a set a.password=:password, a.loginCount=0 where" +
+        " a.email=:email and a.isPresent=true")
+@NamedQuery(name = "getAllEmails",query = "select e.email from UserEntity e")
 public class UserEntity {
 
     @Id
@@ -40,6 +45,13 @@ public class UserEntity {
     @Column(name = "user_state")
     private String state;
 
+    @Column(name = "user_city")
+    private String city;
+
+
+    @Column(name = "user_pincode")
+    private String pincode;
+
     @Column(name = "user_address")
     private String address;
 
@@ -54,5 +66,9 @@ public class UserEntity {
 
     @Column(name = "expiry_time")
     private LocalDateTime expiryTime;
+
+    @Column(name = "file_path")
+    private String filePath;
+
 
 }

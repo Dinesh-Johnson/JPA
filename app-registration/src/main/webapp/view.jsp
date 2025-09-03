@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
@@ -34,6 +34,10 @@
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="login">Login</a>
                 <a class="nav-link" href="register">Register</a>
+                <img src="<c:url value='/uploads/${dto.filePath}' />"
+                     alt="Profile"
+                     class="rounded-circle me-2"
+                     style="width:40px; height:40px; object-fit:cover;">
             </div>
         </div>
     </div>
@@ -44,6 +48,10 @@
         <div class="card-header bg-warning text-dark">
             <h4 class="card-title mb-0">User Details</h4>
         </div>
+        <div class="mt-3">
+            <strong>Profile Picture:</strong><br>
+            <img src="<c:url value='/uploads/${dto.filePath}' />" class="card-img-top" alt="Profile Image">
+        </div>
         <div class="card-body">
             <p><strong>Name:</strong> ${dto.name}</p>
             <p><strong>Email:</strong> ${dto.email}</p>
@@ -51,10 +59,12 @@
             <p><strong>Date of Birth:</strong> ${dto.dob}</p>
             <p><strong>Gender:</strong> ${dto.gender}</p>
             <p><strong>State:</strong> ${dto.state}</p>
+            <p><strong>City:</strong> ${dto.city}</p>
+            <p><strong>Pincode:</strong> ${dto.pincode}</p>
             <p><strong>Address:</strong> ${dto.address}</p>
         </div>
         <div class="card-footer text-center">
-            <a href="editProfile" class="btn btn-primary">Edit Profile</a>
+            <a href="editProfile?email=${dto.email}" class="btn btn-primary">Edit Profile</a>
             <a href="login" class="btn btn-secondary ms-2">Back to Log IN</a>
         </div>
     </div>

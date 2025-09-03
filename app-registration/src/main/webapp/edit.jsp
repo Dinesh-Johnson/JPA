@@ -42,28 +42,29 @@
 <!-- Main content -->
 <div class="container my-5" style="max-width:500px;">
     <h2 class="mb-4 text-center">Registration</h2>
-    <form action="register" method="post" id="form" enctype="multipart/form-data">
+    <form action="edit" method="post" id="form" enctype="multipart/form-data">
         <p style="color:red">${message}</p>
-<!--        <div class="mb-3">-->
-<!--            <label for="profile" class="form-label">Upload Profile</label>-->
-<!--            <input type="file" name="multipartfile" id="profile" required />-->
-<!--        </div>-->
+        <div class="mb-3">
+            <label for="profile" class="form-label">Upload Profile</label>
+            <input type="file" name="filepath" id="profile" required />
+        </div>
+        <div class="mb-3">
+            <label for="id" class="form-label">ID</label>
+            <input type="text" class="form-control" id="id" name="id" value="${dto.id}"  readonly>
+        </div>
         <div class="mb-3">
             <label for="regName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="regName" name="name" value="${dto.name}" onblur="checkname()" required>
+            <input type="text" class="form-control" id="regName" name="name" value="${dto.name}"  required>
             <span id="errorname" style="color: red;"></span>
         </div>
         <div class="mb-3">
             <label for="regEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="regEmail" name="email" value="${dto.email}" onblur="loginemail();" oninput="checkmail()" required>
+            <input type="email" class="form-control" id="regEmail" name="email" value="${dto.email}"  oninput="checkmail()" readonly>
             <span id="errormail" style="color: red;"></span>
         </div>
         <div class="mb-3">
             <label for="regPhone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="regPhone" name="mobile"
-                   pattern="[0-9]{10}" maxlength="10"
-                   value="${dto.mobile}"
-                   onblur="loginmobile()" oninput="checkmobile()" required>
+            <input type="tel" class="form-control" id="regPhone" name="mobile" pattern="[0-9]{10}" maxlength="10" value="${dto.mobile}" onblur="oginmobile()" oninput="checkmobile()" required>
             <span id="errormobile" style="color: red;"></span>
         </div>
         <div class="mb-3">
@@ -72,51 +73,48 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Gender</label><br>
+
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="gender" id="genderMale"
                        value="Male" ${dto.gender == 'Male' ? 'checked' : ''} required>
                 <label class="form-check-label" for="genderMale">Male</label>
             </div>
+
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="gender" id="genderFemale"
                        value="Female" ${dto.gender == 'Female' ? 'checked' : ''}>
                 <label class="form-check-label" for="genderFemale">Female</label>
             </div>
+
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="gender" id="genderOther"
                        value="Other" ${dto.gender == 'Other' ? 'checked' : ''}>
                 <label class="form-check-label" for="genderOther">Other</label>
             </div>
         </div>
-        <!-- State -->
-        <div class="mb-3">
-            <label class="form-label">State</label>
-            <select name="state" id="state" class="form-select" required>
-                <option value="">-- Select State --</option>
-            </select>
-        </div>
 
-        <!-- City -->
         <div class="mb-3">
-            <label class="form-label">City</label>
-            <select name="district" id="district" class="form-select" required>
-                <option value="">-- Select City --</option>
+            <label for="state" class="form-label">State</label>
+            <select class="form-select" id="state" name="state" required>
+                <option value="">Select State</option>
+                <option value="Karnataka" ${dto.state == 'Karnataka' ? 'selected' : ''}>Karnataka</option>
+                <option value="Maharashtra" ${dto.state == 'Maharashtra' ? 'selected' : ''}>Maharashtra</option>
+                <option value="TamilNadu" ${dto.state == 'TamilNadu' ? 'selected' : ''}>Tamil Nadu</option>
+                <option value="Kerala" ${dto.state == 'Kerala' ? 'selected' : ''}>Kerala</option>
+                <option value="Telangana" ${dto.state == 'Telangana' ? 'selected' : ''}>Telangana</option>
+                <option value="AndhraPradesh" ${dto.state == 'AndhraPradesh' ? 'selected' : ''}>Andhra Pradesh</option>
+                <option value="WestBengal" ${dto.state == 'WestBengal' ? 'selected' : ''}>West Bengal</option>
+                <option value="Gujarat" ${dto.state == 'Gujarat' ? 'selected' : ''}>Gujarat</option>
+                <option value="Rajasthan" ${dto.state == 'Rajasthan' ? 'selected' : ''}>Rajasthan</option>
+                <option value="Punjab" ${dto.state == 'Punjab' ? 'selected' : ''}>Punjab</option>
             </select>
         </div>
-
-        <!-- Pincode -->
         <div class="mb-3">
-            <label class="form-label">Pincode</label>
-            <select name="pincode" id="pincode" class="form-select" required>
-                <option value="">-- Select Pincode --</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label" >Address</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                      name="address" onblur="checkaddress()" required>${dto.address}</textarea>
+            <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="address" required>${dto.address}</textarea>
             <span id="erroraddress" style="color: red;"></span>
         </div>
+
 
         <button type="submit" class="btn btn-success w-100">Register</button>
     </form>

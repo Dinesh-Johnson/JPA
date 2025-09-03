@@ -1,6 +1,7 @@
 package com.xworkz.registraition.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 
@@ -32,5 +33,15 @@ public class UserDTO {
     @NotBlank
     private String address;
 
+    @NotBlank
+    private String city;
+
+    @NotBlank
+    private String pincode;
+
     private Integer loginCount;
+
+    private MultipartFile multipartfile;
+
+    private String filePath;
 }

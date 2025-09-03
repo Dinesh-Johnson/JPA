@@ -29,16 +29,35 @@ function loginemail() {
         }
     }
 
-    function toggleSubmit(){
-        const errormail= document.geElementById("errormail").innerText.trim();
-        const errormobile= document.geElementById("errormobile").innerText.trim();
+  function toggleSubmit(){
+      const errormail = document.getElementById("errormail").innerText.trim();
+      const errormobile = document.getElementById("errormobile").innerText.trim();
 
-        const submit= document.querySelector("#form button[type='submit']");
+      const submit = document.querySelector("#form button[type='submit']");
 
-        if(errormail !== "" || errormobile!== ""){
-            submit.disable=true;
-        }else{
-            submit.disable=false;
-        }
+      if(errormail !== "" || errormobile !== ""){
+          submit.disabled = true;
+      } else {
+          submit.disabled = false;
+      }
+  }
 
-    }
+
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ DOM is ready, script is running");
+
+    const stateDropdown = document.getElementById("state");
+    console.log("State dropdown found:", stateDropdown);
+
+    // test add one option
+    let testOpt = document.createElement("option");
+    testOpt.value = "Test";
+    testOpt.textContent = "Test State";
+    stateDropdown.appendChild(testOpt);
+});
+
+
+
+
+
+

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -63,6 +65,8 @@ public class UserServiceImpl implements UserService{
 
                 UserDTO dto = new UserDTO();
                 BeanUtils.copyProperties(entity,dto);
+                String baseUrl="http://localhost:8080/uploads/";
+                dto.setFilePath(baseUrl+entity.getFilePath());
                 return dto;
             }
 
@@ -129,5 +133,50 @@ public class UserServiceImpl implements UserService{
             }
         }
         return false;
+    }
+
+    @Override
+    public UserDTO viewByEmail(String email) {
+        System.out.println("View By email Service");
+        UserEntity entity = repo.acceptLogin(email);
+        UserDTO dto = new UserDTO();
+        BeanUtils.copyProperties(entity,dto);
+        return dto;
+    }
+
+    @Override
+    public boolean updateById(String name, Long mobile, String dob, String state, String address, Integer id,String filepath) {
+        System.out.println("Service Update by ID.....");
+
+        return repo.updateById(name,mobile,dob,state,address,id,filepath);
+    }
+
+    @Override
+    public boolean setOTPByEmail(String email) {
+        System.out.println("Serive OTP By Mail");
+        String otp=OTPUtill.generateNumericOtp(6);
+        if (repo.updateOTPByEmail(email,otp)){
+            if (sender.mailSend(email,otp)){
+                System.out.println("OTP send Successfully");
+                return true;
+            }
+            System.err.println("OTP not send Successfully");
+        }
+        return false;
+    }
+
+    @Override
+    public UserDTO editProfile(String mail) {
+
+        UserEntity entity = repo.acceptLogin(mail);
+        UserDTO dto = new UserDTO();
+        BeanUtils.copyProperties(entity,dto);
+        return dto;
+    }
+
+    @Override
+    public List<String> getAllEmails() {
+        System.out.println("Serive et all Emails");
+        return repo.getAllEmails();
     }
 }

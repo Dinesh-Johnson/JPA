@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import sun.security.mscapi.CPublicKey;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import javax.validation.Valid;
 
 @Controller
@@ -30,16 +33,32 @@ public class AppController {
         System.out.println("Opening Register Page..");
         return "register";
     }
+    @GetMapping("find")
+    public String onIndexView(Model model){
+        System.out.println("Opening View Page..");
+        List<String> emails = service.getAllEmails();
+        model.addAttribute("emails", emails);
+        return "find";
+    }
 
     @GetMapping("login")
-    public String onIndexLogin(){
+    public String onIndexLogin(Model model){
         System.out.println("Opening Log In Page..");
+        List<String> emails = service.getAllEmails();
+        model.addAttribute("emails", emails);
         return "login";
+    }
+    @GetMapping("viewProfile")
+    public String onView(@RequestParam("email")String email,Model model){
+        System.out.println("Opening View In Page..");
+        UserDTO dto = service.viewByEmail(email);
+        model.addAttribute("dto",dto);
+        return "view";
     }
 
 
     @PostMapping("register")
-    public String save(@Valid UserDTO dto, BindingResult result, Model model){
+    public String save(@Valid UserDTO dto, BindingResult result, Model model) throws IOException {
 
         System.out.println(dto);
         System.out.println("registeringg.......");
@@ -50,7 +69,24 @@ public class AppController {
             model.addAttribute("message","INVALID DETAILS");
             model.addAttribute("dto",dto);
             return "register";
+
+
         }
+        try {
+
+            // Get the file and save it somewhere
+            byte[] bytes = dto.getMultipartfile().getBytes();
+            Path path = Paths.get("D:\\File Folder\\"+dto.getName()+System.currentTimeMillis() + dto.getMultipartfile().getOriginalFilename());
+            Files.write(path, bytes);
+            String filename=path.getFileName().toString();
+            dto.setFilePath(filename);
+            System.out.println(filename);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         if (service.save(dto)){
             model.addAttribute("message","SUBMITTED");
             return "loginwithOtp";
@@ -107,6 +143,60 @@ public class AppController {
             return "resetpassword";
         }
         model.addAttribute("dto", dto);
-        return "view";
+        return "loginSuccess";
+    }
+
+    @PostMapping("/resend-otp")
+    @ResponseBody
+    public String resendOTP(@RequestParam("email")String email)
+    {
+        System.out.println("resend otp in controller");
+        if(service.setOTPByEmail(email))
+        {
+            return "Otp sent";
+        }
+        return "Otp not sent";
+    }
+
+    @GetMapping("editProfile")
+    public String editProfile(@RequestParam("email")String email,Model model){
+        System.out.println("COntroller Edit PRofile");
+        UserDTO dto = service.editProfile(email);
+        model.addAttribute("dto",dto);
+        return "edit";
+    }
+    @PostMapping("edit")
+    public String update(@RequestParam("name") String name,
+                         @RequestParam("mobile")Long mobile,
+                         @RequestParam("dob") String dob, @RequestParam("state") String state,
+                         @RequestParam("address") String address, @RequestParam("id") Integer id,
+                         @RequestParam("email")String email,@RequestParam("filepath")String filepath, Model model){
+
+        System.out.println("Update Page....");
+        boolean update = service.updateById(name,mobile,dob,state,address,id,filepath);
+
+        if (!update) {
+            model.addAttribute("dto.name", name);
+            model.addAttribute("dto.mobile", mobile);
+            model.addAttribute("dto.dob", dob);
+            model.addAttribute("dto.state", state);
+            model.addAttribute("dto.address", address);
+            model.addAttribute("dto.id", id);
+            return "edit";
+        }else {
+            UserDTO dto = service.viewByEmail(email);
+            System.out.println("Controller "+dto);
+            model.addAttribute("dto",dto);
+            model.addAttribute("message", "UPDATED SUCCESSFULLY");
+            return "loginSuccess";
+        }
+
+    }
+
+    @GetMapping("/getUserByEmail")
+    @ResponseBody
+    public UserDTO getUserByEmail(@RequestParam("email") String email) {
+        System.out.println("Fetching user for: " + email);
+        return service.viewByEmail(email); // returns dto for that email
     }
 }

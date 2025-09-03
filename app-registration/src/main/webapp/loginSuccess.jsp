@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
@@ -27,7 +27,6 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" ></span>
         </button>
-        <!-- Button to toggle dark mode -->
         <button id="darkModeToggle" class="btn btn-outline-dark ms-3" type="button">
             <i class="bi bi-moon"></i> Dark Mode
         </button>
@@ -35,38 +34,28 @@
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="login">Login</a>
                 <a class="nav-link" href="register">Register</a>
+                <a href="viewProfile?email=${dto.email}">
+                    <img src="<c:url value='/uploads/${dto.filePath}' />"
+                         alt="Profile"
+                         class="rounded-circle me-2"
+                         style="width:40px; height:40px; object-fit:cover;">
+                </a>
             </div>
         </div>
     </div>
 </nav>
- <h2 class="mb-4 text-center">Login</h2>
-<form action="loginwithOTP" method="post">
-    <div class="mb-3">
-        <label for="email" class="form-label">E-mail</label>
-        <input type="text" class="form-control" id="email" name="email" required>
-    </div>
 
-    <div class="mb-3">
-        <label for="otp" class="form-label">OTP</label>
-        <input type="text" class="form-control" id="otp" name="otp" required>
-    </div>
-
-    <!-- Countdown Timer -->
-    <p id="timer" class="text-danger fw-bold text-center"></p>
-
-    <!-- Login Button -->
-    <button type="submit" id="loginBtn" class="btn btn-primary">Login</button>
-
-    <!-- Resend OTP Button (hidden at start) -->
-    <button type="button" id="resendBtn" class="btn btn-link"
-            style="display:none;" onclick="resendOtp()">Resend OTP</button>
-</form>
-
-    <div class="mt-3 text-center">
-        <a href="register">Don't have an account? Register</a>
+<div class="container my-5" style="max-width: 500px;">
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <img src="images/default.png" alt="Success" style="height:24px; width:24px; margin-right:5px;">
+        <strong>✅ Successfully Logged In!</strong>
+        Click your profile picture to view your details.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </div>
-<p style="colour:red">${message}</p>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 <footer class="mt-auto bg-dark text-white text-center py-3 position-relative">
     X-Workz © 2025
 

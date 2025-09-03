@@ -1,0 +1,193 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>X-WORKZ (ODC)</title>
+    <!-- Bootstrap 5 CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Your external CSS -->
+    <link href="css/styles.css" rel="stylesheet"/>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<!-- Header Navbar -->
+<nav class="navbar navbar-expand-lg navbar-orange">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">
+            <span class="logo-badge">
+  <img src="images/img.png" alt="Logo" style="height:50px;"/>
+
+</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <button id="darkModeToggle" class="btn btn-outline-dark ms-3" type="button">
+            <i class="bi bi-moon"></i> Dark Mode
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="login">Login</a>
+                <a class="nav-link" href="register">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main content -->
+<div class="container my-5" style="max-width:500px;">
+    <h2 class="mb-4 text-center">View Details</h2>
+    <form action="view" method="post" id="form" enctype="multipart/form-data">
+        <p style="color:red">${message}</p>
+        <!--        <div class="mb-3">-->
+        <!--            <label for="profile" class="form-label">Upload Profile</label>-->
+        <!--            <input type="file" name="multipartfile" id="profile" required />-->
+        <!--        </div>-->
+        <div class="mb-3">
+            <label for="regName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="regName" name="name" value="${dto.name}">
+            <span id="errorname" style="color: red;"></span>
+        </div>
+        <div class="mb-3">
+            <label for="emailDropdown" class="form-label">Select Email</label>
+            <select class="form-select" id="emailDropdown">
+                <option value="">-- Select Email --</option>
+                <c:forEach var="email" items="${emails}">
+                    <option value="${email}">${email}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="regPhone" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="regPhone" name="mobile"
+                   pattern="[0-9]{10}" maxlength="10"
+                   value="${dto.mobile}">
+            <span id="errormobile" style="color: red;"></span>
+        </div>
+        <div class="mb-3">
+            <label for="regDOB" class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" id="regDOB" name="dob" value="${dto.dob}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Gender</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderMale"
+                       value="Male" ${dto.gender== 'Male' ? 'checked' : ''} required>
+                <label class="form-check-label" for="genderMale">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderFemale"
+                       value="Female" ${dto.gender== 'Female' ? 'checked' : ''}>
+                <label class="form-check-label" for="genderFemale">Female</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderOther"
+                       value="Other" ${dto.gender== 'Other' ? 'checked' : ''}>
+                <label class="form-check-label" for="genderOther">Other</label>
+            </div>
+        </div>
+        <!-- State -->
+        <select name="state" id="state" class="form-select" required>
+            <option value="">-- Select State --</option>
+            <c:forEach var="s" items="${states}">
+                <option value="${s}">${s}</option>
+            </c:forEach>
+        </select>
+
+        <select name="district" id="district" class="form-select" required>
+            <option value="">-- Select District --</option>
+            <c:forEach var="d" items="${district}">
+                <option value="${d}">${d}</option>
+            </c:forEach>
+        </select>
+
+        <select name="pincode" id="pincode" class="form-select" required>
+            <option value="">-- Select Pincode --</option>
+            <c:forEach var="p" items="${pincodes}">
+                <option value="${p}">${p}</option>
+            </c:forEach>
+        </select>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                      name="address">${dto.address}</textarea>
+            <span id="erroraddress" style="color: red;"></span>
+        </div>
+    </form>
+    <div class="mt-3 text-center">
+        <a href="login">Already have an account? Login</a>
+    </div>
+</div>
+
+<footer class="mt-auto bg-dark text-white text-center py-3 position-relative">
+    X-Workz © 2025
+
+    <!-- Social Icons bottom right -->
+    <div class="social-icons position-absolute" style="right: 20px; bottom: 10px;">
+        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"
+                                             style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#" aria-label="Twitter"><i class="bi bi-twitter"
+                                            style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"
+                                              style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"
+                                             style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("emailDropdown").addEventListener("change", function () {
+        let email = this.value;
+        if (!email) return;
+
+        fetch("getUserByEmail?email=" + encodeURIComponent(email))
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById("regName").value = data.name || "";
+                    document.getElementById("regPhone").value = data.mobile || "";
+                    document.getElementById("regDOB").value = data.dob || "";
+                    document.getElementById("exampleFormControlTextarea1").value = data.address || "";
+
+                    // Gender
+                    if (data.gender) {
+                        document.querySelectorAll("input[name='gender']").forEach(radio => {
+                            radio.checked = (radio.value === data.gender);
+                        });
+                    }
+
+                    // Handle dropdowns safely
+                    setDropdownValue("state", data.state);
+                    setDropdownValue("district", data.district);
+                    setDropdownValue("pincode", data.pincode);
+                }
+            })
+            .catch(err => console.error("Error fetching user:", err));
+    });
+
+    function setDropdownValue(dropdownId, value) {
+        if (!value) return;
+        const dropdown = document.getElementById(dropdownId);
+        let option = dropdown.querySelector("option[value='" + value + "']");
+        if (!option) {
+            // Add missing option dynamically
+            const newOption = document.createElement("option");
+            newOption.value = value;
+            newOption.text = value;
+            dropdown.appendChild(newOption);
+        }
+        dropdown.value = value;
+    }
+</script>
+
+<script src="js/darkModeToggle.js" defer></script>
+<script src="js/validation.js" defer></script>
+<script src="js/ajax.js" defer></script>
+</body>
+</html>

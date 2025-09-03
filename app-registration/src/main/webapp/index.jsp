@@ -33,6 +33,7 @@
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="login">Login</a>
                 <a class="nav-link" href="register">Register</a>
+                <a class="nav-link" href="find">View</a>
             </div>
         </div>
     </div>
