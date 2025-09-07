@@ -2,6 +2,8 @@ package com.xworkz.registraition.entity;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -69,6 +71,31 @@ public class UserEntity {
 
     @Column(name = "file_path")
     private String filePath;
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "userEntity")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AuditEntity audit;
+
+    @PrePersist
+    public void preSave() {
+        if (audit == null) {
+            audit = new AuditEntity();
+            audit.setUserEntity(this);
+        }
+        audit.setCreatedBy(this.name);
+        audit.setCreatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    public void preEdit() {
+        if (audit == null) {
+            audit = new AuditEntity();
+            audit.setUserEntity(this);
+        }
+        audit.setModifiedBy(this.name);
+        audit.setModifiedAt(LocalDateTime.now());
+    }
 
 
 }
