@@ -20,7 +20,7 @@ public interface UserRepo {
 
     void lockTimeUpdate(UserEntity entity);
 
-    boolean updateById(String name,Long mobile,String dob,String state,String address,Integer id,String filepath);
+    boolean updateById(String name,Long mobile,String dob,String state,String address,Integer id,String filepath,String district,String pincode);
 
     boolean updateOTPByEmail(String email,String otp);
 

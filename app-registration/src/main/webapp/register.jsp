@@ -100,7 +100,7 @@
         <div class="mb-3">
             <label class="form-label">City</label>
             <select name="district" id="district" class="form-select" required>
-                <option value="">-- Select City --</option>
+                <option value="">-- Select District --</option>
             </select>
         </div>
 

@@ -145,10 +145,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean updateById(String name, Long mobile, String dob, String state, String address, Integer id,String filepath) {
+    public boolean updateById(String name, Long mobile, String dob, String state, String address, Integer id,String filepath,String district,String pincode) {
         System.out.println("Service Update by ID.....");
 
-        return repo.updateById(name,mobile,dob,state,address,id,filepath);
+        return repo.updateById(name,mobile,dob,state,address,id,filepath,district,pincode);
     }
 
     @Override

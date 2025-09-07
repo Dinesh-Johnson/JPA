@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import sun.security.mscapi.CPublicKey;
 
 import java.io.*;
@@ -58,7 +59,7 @@ public class AppController {
 
 
     @PostMapping("register")
-    public String save(@Valid UserDTO dto, BindingResult result, Model model) throws IOException {
+    public String save(@Valid UserDTO dto, BindingResult result, Model model){
 
         System.out.println(dto);
         System.out.println("registeringg.......");
@@ -69,24 +70,7 @@ public class AppController {
             model.addAttribute("message","INVALID DETAILS");
             model.addAttribute("dto",dto);
             return "register";
-
-
         }
-        try {
-
-            // Get the file and save it somewhere
-            byte[] bytes = dto.getMultipartfile().getBytes();
-            Path path = Paths.get("D:\\File Folder\\"+dto.getName()+System.currentTimeMillis() + dto.getMultipartfile().getOriginalFilename());
-            Files.write(path, bytes);
-            String filename=path.getFileName().toString();
-            dto.setFilePath(filename);
-            System.out.println(filename);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
         if (service.save(dto)){
             model.addAttribute("message","SUBMITTED");
             return "loginwithOtp";
@@ -114,6 +98,9 @@ public class AppController {
         System.out.println("Rest Password");
         System.out.println("Email :" + email + "--- Password :" + password);
         if (service.resetPassword(email, password, confirmPassword)) {
+            System.out.println("Opening Log In Page..");
+            List<String> emails = service.getAllEmails();
+            model.addAttribute("emails", emails);
             model.addAttribute("message", "Password Set Successfully. Please login.");
             return "login";
         } else {
@@ -130,12 +117,18 @@ public class AppController {
         try{
             dto = service.acceptLogin(email, password);
         }catch (RuntimeException e){
+            System.out.println("Opening Log In Page..");
+            List<String> emails = service.getAllEmails();
+            model.addAttribute("emails", emails);
             model.addAttribute("message",e.getMessage());
             model.addAttribute("email",email);
             return "login";
         }
         if (dto == null) {
             model.addAttribute("message", "Invalid email or password");
+            System.out.println("Opening Log In Page..");
+            List<String> emails = service.getAllEmails();
+            model.addAttribute("emails", emails);
             return "login";
         }
         if (dto.getLoginCount()==-1){
@@ -166,15 +159,31 @@ public class AppController {
         return "edit";
     }
     @PostMapping("edit")
-    public String update(@RequestParam("name") String name,
-                         @RequestParam("mobile")Long mobile,
+    public String update(@RequestParam("name") String name, @RequestParam("mobile") Long mobile,
                          @RequestParam("dob") String dob, @RequestParam("state") String state,
                          @RequestParam("address") String address, @RequestParam("id") Integer id,
-                         @RequestParam("email")String email,@RequestParam("filepath")String filepath, Model model){
+                         @RequestParam("email") String email, @RequestParam("filepath") MultipartFile multipartFile,
+                         @RequestParam("district") String district,
+                         @RequestParam("pincode") String pincode, Model model){
 
         System.out.println("Update Page....");
-        boolean update = service.updateById(name,mobile,dob,state,address,id,filepath);
 
+        String dbFilePath = null;
+        try {
+
+            String filename = name + System.currentTimeMillis() + multipartFile.getOriginalFilename();
+            Path path = Paths.get("D:\\File Folder\\" + filename);
+            Files.write(path, multipartFile.getBytes());
+
+            // This is what you store in DB (relative path)
+            dbFilePath = path.getFileName().toString();
+
+            System.out.println("Saved file: " + dbFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        boolean update = service.updateById(name,mobile,dob,state,address,id, dbFilePath,district,pincode);
+        System.out.println("Update result = " + update);
         if (!update) {
             model.addAttribute("dto.name", name);
             model.addAttribute("dto.mobile", mobile);
@@ -182,6 +191,8 @@ public class AppController {
             model.addAttribute("dto.state", state);
             model.addAttribute("dto.address", address);
             model.addAttribute("dto.id", id);
+            model.addAttribute("dto.district", district);
+            model.addAttribute("dto.pincode", pincode);
             return "edit";
         }else {
             UserDTO dto = service.viewByEmail(email);

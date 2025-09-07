@@ -20,7 +20,7 @@ public interface UserService {
 
     UserDTO viewByEmail(String email);
 
-    boolean updateById(String name,Long mobile,String dob,String state,String address,Integer id,String filepath);
+    boolean updateById(String name,Long mobile,String dob,String state,String address,Integer id,String filepath,String district,String pincode);
 
     boolean setOTPByEmail(String email);
 

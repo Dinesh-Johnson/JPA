@@ -177,7 +177,7 @@ public class UserRepoImpl implements UserRepo{
     }
 
     @Override
-    public boolean updateById(String name, Long mobile, String dob, String state, String address,Integer id,String filepath) {
+    public boolean updateById(String name, Long mobile, String dob, String state, String address,Integer id,String filepath,String district,String pincode) {
         System.out.println("Repo Update By ID.....");
         boolean isUpdate=false;
         EntityManager em=null;
@@ -186,7 +186,8 @@ public class UserRepoImpl implements UserRepo{
             em.getTransaction().begin();
             int rows=em.createNamedQuery("updateById").setParameter("name",name).setParameter("mobile",mobile)
                     .setParameter("dob",dob).setParameter("state",state).setParameter("address",address)
-                    .setParameter("id",id).setParameter("filepath",filepath).executeUpdate();
+                    .setParameter("id",id).setParameter("filePath",filepath)
+                    .setParameter("district",district).setParameter("pincode",pincode).executeUpdate();
 
             if (rows>0){
                 em.getTransaction().commit();

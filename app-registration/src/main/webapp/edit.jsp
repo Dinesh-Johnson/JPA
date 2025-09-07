@@ -17,15 +17,14 @@
 <!-- Header Navbar -->
 <nav class="navbar navbar-expand-lg navbar-orange">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#" >
+        <a class="navbar-brand fw-bold" href="#">
             <span class="logo-badge">
-  <img src="images/img.png" alt="Logo" style="height:50px;"/>
-
-</span>
+                <img src="images/img.png" alt="Logo" style="height:50px;"/>
+            </span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" ></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <button id="darkModeToggle" class="btn btn-outline-dark ms-3" type="button">
             <i class="bi bi-moon"></i> Dark Mode
@@ -41,51 +40,61 @@
 
 <!-- Main content -->
 <div class="container my-5" style="max-width:500px;">
-    <h2 class="mb-4 text-center">Registration</h2>
+    <h2 class="mb-4 text-center">Edit User</h2>
     <form action="edit" method="post" id="form" enctype="multipart/form-data">
         <p style="color:red">${message}</p>
+
+        <!-- Upload profile -->
         <div class="mb-3">
             <label for="profile" class="form-label">Upload Profile</label>
-            <input type="file" name="filepath" id="profile" required />
+            <input type="file" name="filepath" id="profile"/>
         </div>
+
+        <!-- ID -->
         <div class="mb-3">
             <label for="id" class="form-label">ID</label>
-            <input type="text" class="form-control" id="id" name="id" value="${dto.id}"  readonly>
+            <input type="text" class="form-control" id="id" name="id" value="${dto.id}" readonly>
         </div>
+
+        <!-- Name -->
         <div class="mb-3">
             <label for="regName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="regName" name="name" value="${dto.name}"  required>
-            <span id="errorname" style="color: red;"></span>
+            <input type="text" class="form-control" id="regName" name="name" value="${dto.name}" required>
         </div>
+
+        <!-- Email -->
         <div class="mb-3">
             <label for="regEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="regEmail" name="email" value="${dto.email}"  oninput="checkmail()" readonly>
-            <span id="errormail" style="color: red;"></span>
+            <input type="email" class="form-control" id="regEmail" name="email" value="${dto.email}" readonly>
         </div>
+
+        <!-- Mobile -->
         <div class="mb-3">
             <label for="regPhone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="regPhone" name="mobile" pattern="[0-9]{10}" maxlength="10" value="${dto.mobile}" onblur="oginmobile()" oninput="checkmobile()" required>
-            <span id="errormobile" style="color: red;"></span>
+            <input type="tel" class="form-control" id="regPhone" name="mobile"
+                   pattern="[0-9]{10}" maxlength="10"
+                   value="${dto.mobile}" required>
         </div>
+
+        <!-- DOB -->
         <div class="mb-3">
             <label for="regDOB" class="form-label">Date of Birth</label>
             <input type="date" class="form-control" id="regDOB" name="dob" value="${dto.dob}" required>
         </div>
+
+        <!-- Gender -->
         <div class="mb-3">
             <label class="form-label">Gender</label><br>
-
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="gender" id="genderMale"
                        value="Male" ${dto.gender == 'Male' ? 'checked' : ''} required>
                 <label class="form-check-label" for="genderMale">Male</label>
             </div>
-
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="gender" id="genderFemale"
                        value="Female" ${dto.gender == 'Female' ? 'checked' : ''}>
                 <label class="form-check-label" for="genderFemale">Female</label>
             </div>
-
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="gender" id="genderOther"
                        value="Other" ${dto.gender == 'Other' ? 'checked' : ''}>
@@ -93,30 +102,40 @@
             </div>
         </div>
 
+        <!-- State -->
         <div class="mb-3">
-            <label for="state" class="form-label">State</label>
-            <select class="form-select" id="state" name="state" required>
-                <option value="">Select State</option>
-                <option value="Karnataka" ${dto.state == 'Karnataka' ? 'selected' : ''}>Karnataka</option>
-                <option value="Maharashtra" ${dto.state == 'Maharashtra' ? 'selected' : ''}>Maharashtra</option>
-                <option value="TamilNadu" ${dto.state == 'TamilNadu' ? 'selected' : ''}>Tamil Nadu</option>
-                <option value="Kerala" ${dto.state == 'Kerala' ? 'selected' : ''}>Kerala</option>
-                <option value="Telangana" ${dto.state == 'Telangana' ? 'selected' : ''}>Telangana</option>
-                <option value="AndhraPradesh" ${dto.state == 'AndhraPradesh' ? 'selected' : ''}>Andhra Pradesh</option>
-                <option value="WestBengal" ${dto.state == 'WestBengal' ? 'selected' : ''}>West Bengal</option>
-                <option value="Gujarat" ${dto.state == 'Gujarat' ? 'selected' : ''}>Gujarat</option>
-                <option value="Rajasthan" ${dto.state == 'Rajasthan' ? 'selected' : ''}>Rajasthan</option>
-                <option value="Punjab" ${dto.state == 'Punjab' ? 'selected' : ''}>Punjab</option>
+            <label class="form-label">State</label>
+            <select name="state" id="state" class="form-select" required>
+                <option value="">Select District</option>
+                <option value="${dto.state}" selected>${dto.district}</option>
             </select>
         </div>
+
+        <!-- District -->
+        <div class="mb-3">
+            <label for="district" class="form-label">District</label>
+            <select class="form-select" id="district" name="district" required>
+                <option value="">Select District</option>
+                <option value="${dto.district}" selected>${dto.district}</option>
+            </select>
+        </div>
+
+        <!-- Pincode -->
+        <div class="mb-3">
+            <label for="pincode" class="form-label">Pincode</label>
+            <select class="form-select" id="pincode" name="pincode" required>
+                <option value="">Select Pincode</option>
+                <option value="${dto.pincode}" selected>${dto.pincode}</option>
+            </select>
+        </div>
+
+        <!-- Address -->
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Address</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="address" required>${dto.address}</textarea>
-            <span id="erroraddress" style="color: red;"></span>
         </div>
 
-
-        <button type="submit" class="btn btn-success w-100">Register</button>
+        <button type="submit" class="btn btn-success w-100">Update</button>
     </form>
     <div class="mt-3 text-center">
         <a href="login">Already have an account? Login</a>
@@ -125,13 +144,11 @@
 
 <footer class="mt-auto bg-dark text-white text-center py-3 position-relative">
     X-Workz © 2025
-
-    <!-- Social Icons bottom right -->
     <div class="social-icons position-absolute" style="right: 20px; bottom: 10px;">
-        <a href="#" aria-label="Facebook"><i class="bi bi-facebook" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
-        <a href="#" aria-label="Twitter"><i class="bi bi-twitter" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
-        <a href="#" aria-label="Instagram"><i class="bi bi-instagram" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
-        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#"><i class="bi bi-facebook" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#"><i class="bi bi-twitter" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#"><i class="bi bi-instagram" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
+        <a href="#"><i class="bi bi-linkedin" style="font-size:32px; color:#fff; margin-left:10px;"></i></a>
     </div>
 </footer>
 

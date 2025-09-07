@@ -35,7 +35,7 @@
                 <a class="nav-link" href="login">Login</a>
                 <a class="nav-link" href="register">Register</a>
                 <a href="viewProfile?email=${dto.email}">
-                    <img src="<c:url value='/uploads/${dto.filePath}' />"
+                    <img src="images/default.png"
                          alt="Profile"
                          class="rounded-circle me-2"
                          style="width:40px; height:40px; object-fit:cover;">

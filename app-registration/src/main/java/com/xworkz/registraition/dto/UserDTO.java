@@ -34,7 +34,7 @@ public class UserDTO {
     private String address;
 
     @NotBlank
-    private String city;
+    private String district;
 
     @NotBlank
     private String pincode;

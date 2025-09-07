@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "getByMobile",query = "select a.mobile from UserEntity a where a.mobile = :mobile and a.isPresent=true")
 @NamedQuery(name = "getPassword",query = "select a.password from UserEntity a where a.email=:email and a.isPresent=true")
 @NamedQuery(name = "updateById",query = "update UserEntity a set a.name=:name,a.mobile=:mobile,a.dob=:dob," +
-        "a.state=:state,a.address=:address,a.filePath=:filePath where a.id=:id and a.isPresent=true")
+        "a.state=:state,a.address=:address,a.filePath=:filePath,a.district=:district,a.pincode=:pincode where a.id=:id and a.isPresent=true")
 @NamedQuery(name = "setOtpByMail",query = "update UserEntity a set a.password=:otp where a.email=:email and a.isPresent=true")
 @NamedQuery(name = "updatePassword",query = "update UserEntity a set a.password=:password, a.loginCount=0 where" +
         " a.email=:email and a.isPresent=true")
@@ -45,8 +45,8 @@ public class UserEntity {
     @Column(name = "user_state")
     private String state;
 
-    @Column(name = "user_city")
-    private String city;
+    @Column(name = "user_district")
+    private String district;
 
 
     @Column(name = "user_pincode")

@@ -59,7 +59,7 @@
             <p><strong>Date of Birth:</strong> ${dto.dob}</p>
             <p><strong>Gender:</strong> ${dto.gender}</p>
             <p><strong>State:</strong> ${dto.state}</p>
-            <p><strong>City:</strong> ${dto.city}</p>
+            <p><strong>City:</strong> ${dto.district}</p>
             <p><strong>Pincode:</strong> ${dto.pincode}</p>
             <p><strong>Address:</strong> ${dto.address}</p>
         </div>
