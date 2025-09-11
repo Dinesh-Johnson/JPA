@@ -28,4 +28,6 @@ public interface UserService {
 
     List<String> getAllEmails();
 
+    boolean deleteMethod(String email);
+
 }

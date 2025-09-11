@@ -25,4 +25,8 @@ public interface UserRepo {
     boolean updateOTPByEmail(String email,String otp);
 
     List<String> getAllEmails();
+
+    boolean deleteMethod(String email);
+
+
 }

@@ -176,27 +176,35 @@ public class UserRepoImpl implements UserRepo{
         }
     }
 
+
     @Override
-    public boolean updateById(String name, Long mobile, String dob, String state, String address,Integer id,String filepath,String district,String pincode) {
-        System.out.println("Repo Update By ID.....");
-        boolean isUpdate=false;
-        EntityManager em=null;
-        try{
+    public boolean updateById(String name, Long mobile, String dob, String state, String address, Integer id, String filepath, String district, String pincode) {
+        EntityManager em = null;
+        boolean isUpdate = false;
+        try {
             em = emf.createEntityManager();
             em.getTransaction().begin();
-            int rows=em.createNamedQuery("updateById").setParameter("name",name).setParameter("mobile",mobile)
-                    .setParameter("dob",dob).setParameter("state",state).setParameter("address",address)
-                    .setParameter("id",id).setParameter("filePath",filepath)
-                    .setParameter("district",district).setParameter("pincode",pincode).executeUpdate();
 
-            if (rows>0){
+            UserEntity user = em.find(UserEntity.class, id);
+            if (user != null && user.isPresent()) {
+                user.setName(name);
+                user.setMobile(mobile);
+                user.setDob(dob);
+                user.setState(state);
+                user.setAddress(address);
+                user.setFilePath(filepath);
+                user.setDistrict(district);
+                user.setPincode(pincode);
+
+                // No need to call merge if entity is managed
                 em.getTransaction().commit();
-                isUpdate = true;
+                isUpdate = true; // @PreUpdate will run here
             }
-        }catch (QueryException | NoResultException e) {
-            System.out.println(e.getMessage());
-            em.getTransaction().rollback();
-            isUpdate = false;
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.out.println("Error in updateById: " + e.getMessage());
         } finally {
             if (em != null && em.isOpen()) {
                 em.close();
@@ -252,4 +260,32 @@ public class UserRepoImpl implements UserRepo{
         }
         return list;
     }
+
+    @Override
+    public boolean deleteMethod(String email) {
+        System.out.println("Repo Delete Method...");
+        EntityManager em=null;
+        UserEntity entity=null;
+        try{
+            em= emf.createEntityManager();
+            em.getTransaction().begin();
+            entity = (UserEntity) em.createNamedQuery("acceptLogin").setParameter("email",email).getSingleResult();
+            System.out.println(entity);
+            if (entity!=null){
+                entity.deleteTime();
+                entity.setPresent(false);
+                em.getTransaction().commit();
+                return true;
+            }
+        } catch (NoResultException| QueryException e) {
+            System.out.println(e.getMessage());
+        }finally {
+            if(em!=null&& em.isOpen())
+            {
+                em.close();
+            }
+        }
+        return false;
+    }
+
 }

@@ -29,6 +29,14 @@ public class AuditEntity {
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
+    @Column(name = "deleted_by")
+    private String deletedBy;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
+
+
     @OneToOne
     @JoinColumn(name = "id")
     @EqualsAndHashCode.Exclude

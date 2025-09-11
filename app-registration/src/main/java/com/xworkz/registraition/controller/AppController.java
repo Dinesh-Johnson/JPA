@@ -210,4 +210,16 @@ public class AppController {
         System.out.println("Fetching user for: " + email);
         return service.viewByEmail(email); // returns dto for that email
     }
+
+    @GetMapping("deleteProfile")
+    public String deleteByEmail(@RequestParam("email")String email,Model model){
+        System.out.println("Controller Delete...");
+        if (service.deleteMethod(email)){
+            model.addAttribute("Successfully Deletes","Account Deleted");
+            return onIndexLogin(model);
+        }else {
+            model.addAttribute("message","Deleted Failed");
+            return "login";
+        }
+    }
 }

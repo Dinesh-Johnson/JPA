@@ -179,4 +179,10 @@ public class UserServiceImpl implements UserService{
         System.out.println("Serive et all Emails");
         return repo.getAllEmails();
     }
+
+    @Override
+    public boolean deleteMethod(String email) {
+        System.out.println("SErive Delete MEthod");
+        return repo.deleteMethod(email);
+    }
 }

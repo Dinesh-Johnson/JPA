@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "setOtpByMail",query = "update UserEntity a set a.password=:otp where a.email=:email and a.isPresent=true")
 @NamedQuery(name = "updatePassword",query = "update UserEntity a set a.password=:password, a.loginCount=0 where" +
         " a.email=:email and a.isPresent=true")
-@NamedQuery(name = "getAllEmails",query = "select e.email from UserEntity e")
+@NamedQuery(name = "getAllEmails",query = "select e.email from UserEntity e where e.isPresent=true")
 public class UserEntity {
 
     @Id
@@ -76,10 +77,13 @@ public class UserEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private AuditEntity audit;
+    
+
 
     @PrePersist
     public void preSave() {
         if (audit == null) {
+            System.out.println("Pre save");
             audit = new AuditEntity();
             audit.setUserEntity(this);
         }
@@ -90,6 +94,7 @@ public class UserEntity {
     @PreUpdate
     public void preEdit() {
         if (audit == null) {
+            System.out.println("Pre Edit");
             audit = new AuditEntity();
             audit.setUserEntity(this);
         }
@@ -97,5 +102,14 @@ public class UserEntity {
         audit.setModifiedAt(LocalDateTime.now());
     }
 
+
+    public void deleteTime(){
+        if (audit==null){
+            audit =new AuditEntity();
+            audit.setUserEntity(this);
+        }
+        audit.setDeletedAt(LocalDateTime.now());
+        audit.setDeletedBy(name);
+    }
 
 }

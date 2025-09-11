@@ -65,6 +65,7 @@
         </div>
         <div class="card-footer text-center">
             <a href="editProfile?email=${dto.email}" class="btn btn-primary">Edit Profile</a>
+            <a href="deleteProfile?email=${dto.email}" class="btn btn-primary">Delete Profile</a>
             <a href="login" class="btn btn-secondary ms-2">Back to Log IN</a>
         </div>
     </div>
